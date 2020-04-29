@@ -542,7 +542,7 @@ while (1) {
 		// make dealer bot pick cards
 		while (1) {
 			// bot draws until score is at least 17, maximum 4 total cards, or beats player
-			if (botScore < 17 && botCards < 4 && (botScore <= playerScore || botCards < 2))  {
+			if (botScore < 17 && botCards < 4 && (botScore <= playerScore || botCards < 2) && (playerScore < 22 || botCards < 2))  {
 				// give bot random card
 				genVal = rand() % 13;
 				// update bot score
