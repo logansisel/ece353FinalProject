@@ -27,6 +27,7 @@
 #include <string.h>
 #include <stdlib.h>
 
+
 #include "TM4C123.h"
 #include "gpio_port.h"
 #include "lcd.h"
@@ -37,6 +38,7 @@
 #include "project_staff.h"
 #include "project.h"
 #include "project_interrupts.h"
+#include "serial_debug.h"
 
 extern void initialize_serial_debug(void);
 extern void put_string(char *data);

@@ -1,7 +1,7 @@
 Dependencies for Project 'Project', Target 'Project-F19': (DO NOT MODIFY !)
 CompilerVersion: 5060750::V5.06 update 6 (build 750)::ARMCC
-F (.\main.c)(0x5EA8CF27)(-c --cpu Cortex-M4.fp.sp -D__EVAL -D__MICROLIB -g -O0 --apcs=interwork -I C:\Keil_v5\ARM\Pack\ARM\CMSIS\3.20.4\CMSIS\Include -I ..\include -I ..\drivers\include -I ..\peripherals\include --debug-I.\RTE\_Project-F19-I"C:\Users\Adam School\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include"-I"C:\Users\Adam School\AppData\Local\Arm\Packs\Keil\TM4C_DFP\1.1.0\Device\Include\TM4C123"-D__UVISION_VERSION="529" -D_RTE_ -DTM4C123GH6PM-o .\obj\main.o --omf_browse .\obj\main.crf --depend .\obj\main.d)
-I (main.h)(0x5EA8C8EF)
+F (.\main.c)(0x5EA9867C)(-c --cpu Cortex-M4.fp.sp -D__EVAL -D__MICROLIB -g -O0 --apcs=interwork -I C:\Keil_v5\ARM\Pack\ARM\CMSIS\3.20.4\CMSIS\Include -I ..\include -I ..\drivers\include -I ..\peripherals\include --debug-I.\RTE\_Project-F19-I"C:\Users\Adam School\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include"-I"C:\Users\Adam School\AppData\Local\Arm\Packs\Keil\TM4C_DFP\1.1.0\Device\Include\TM4C123"-D__UVISION_VERSION="529" -D_RTE_ -DTM4C123GH6PM-o .\obj\main.o --omf_browse .\obj\main.crf --depend .\obj\main.d)
+I (main.h)(0x5EA97E91)
 I (C:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x5D9B96FA)
 I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5D9B96F8)
 I (C:\Keil_v5\ARM\ARMCC\include\string.h)(0x5D9B96F8)
@@ -19,7 +19,7 @@ I (..\drivers\include\driver_defines.h)(0x5E9BD2E4)
 I (C:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x5D9B96F8)
 I (C:\Keil_v5\ARM\ARMCC\include\errno.h)(0x5D9B96FA)
 I (..\peripherals\include\lcd.h)(0x5EA8C602)
-I (project_images.h)(0x5E9BD2E5)
+I (project_images.h)(0x5EA9416A)
 I (..\drivers\include\timers.h)(0x5E9BD2E4)
 I (..\peripherals\include\ps2.h)(0x5EA8C602)
 I (..\drivers\include\adc.h)(0x5E9BD2E4)
@@ -28,9 +28,12 @@ I (..\peripherals\include\launchpad_io.h)(0x5EA8C602)
 I (project_staff.h)(0x5EA8C7BB)
 I (project.h)(0x5EA8C751)
 I (project_interrupts.h)(0x5EA8C76C)
-F (.\main.h)(0x5EA8C8EF)()
-F (.\project_hardware_init.c)(0x5EA8BB43)(-c --cpu Cortex-M4.fp.sp -D__EVAL -D__MICROLIB -g -O0 --apcs=interwork -I C:\Keil_v5\ARM\Pack\ARM\CMSIS\3.20.4\CMSIS\Include -I ..\include -I ..\drivers\include -I ..\peripherals\include --debug-I.\RTE\_Project-F19-I"C:\Users\Adam School\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include"-I"C:\Users\Adam School\AppData\Local\Arm\Packs\Keil\TM4C_DFP\1.1.0\Device\Include\TM4C123"-D__UVISION_VERSION="529" -D_RTE_ -DTM4C123GH6PM-o .\obj\project_hardware_init.o --omf_browse .\obj\project_hardware_init.crf --depend .\obj\project_hardware_init.d)
-I (main.h)(0x5EA8C8EF)
+I (..\peripherals\include\serial_debug.h)(0x5EA8CBBD)
+I (..\drivers\include\pc_buffer.h)(0x5EA8CCDD)
+I (..\drivers\include\uart.h)(0x5E49E40E)
+F (.\main.h)(0x5EA97E91)()
+F (.\project_interrupts.c)(0x5EA8FCE3)(-c --cpu Cortex-M4.fp.sp -D__EVAL -D__MICROLIB -g -O0 --apcs=interwork -I C:\Keil_v5\ARM\Pack\ARM\CMSIS\3.20.4\CMSIS\Include -I ..\include -I ..\drivers\include -I ..\peripherals\include --debug-I.\RTE\_Project-F19-I"C:\Users\Adam School\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include"-I"C:\Users\Adam School\AppData\Local\Arm\Packs\Keil\TM4C_DFP\1.1.0\Device\Include\TM4C123"-D__UVISION_VERSION="529" -D_RTE_ -DTM4C123GH6PM-o .\obj\project_interrupts.o --omf_browse .\obj\project_interrupts.crf --depend .\obj\project_interrupts.d)
+I (project_interrupts.h)(0x5EA8C76C)
 I (C:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x5D9B96FA)
 I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5D9B96F8)
 I (C:\Keil_v5\ARM\ARMCC\include\string.h)(0x5D9B96F8)
@@ -47,51 +50,20 @@ I (..\drivers\include\gpio_port.h)(0x5E9BD2E4)
 I (..\drivers\include\driver_defines.h)(0x5E9BD2E4)
 I (C:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x5D9B96F8)
 I (C:\Keil_v5\ARM\ARMCC\include\errno.h)(0x5D9B96FA)
-I (..\peripherals\include\lcd.h)(0x5EA8C602)
-I (project_images.h)(0x5E9BD2E5)
-I (..\drivers\include\timers.h)(0x5E9BD2E4)
 I (..\peripherals\include\ps2.h)(0x5EA8C602)
 I (..\drivers\include\adc.h)(0x5E9BD2E4)
 I (..\drivers\include\gptimer.h)(0x5E9BD2E4)
-I (..\peripherals\include\launchpad_io.h)(0x5EA8C602)
-I (project_staff.h)(0x5EA8C7BB)
-I (project.h)(0x5EA8C751)
-I (project_interrupts.h)(0x5EA8C76C)
-F (.\project_hardware_init.h)(0x5EA8BB43)()
-F (.\project_interrupts.c)(0x5EA8BB43)(-c --cpu Cortex-M4.fp.sp -D__EVAL -D__MICROLIB -g -O0 --apcs=interwork -I C:\Keil_v5\ARM\Pack\ARM\CMSIS\3.20.4\CMSIS\Include -I ..\include -I ..\drivers\include -I ..\peripherals\include --debug-I.\RTE\_Project-F19-I"C:\Users\Adam School\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include"-I"C:\Users\Adam School\AppData\Local\Arm\Packs\Keil\TM4C_DFP\1.1.0\Device\Include\TM4C123"-D__UVISION_VERSION="529" -D_RTE_ -DTM4C123GH6PM-o .\obj\project_interrupts.o --omf_browse .\obj\project_interrupts.crf --depend .\obj\project_interrupts.d)
-I (main.h)(0x5EA8C8EF)
-I (C:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x5D9B96FA)
-I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5D9B96F8)
-I (C:\Keil_v5\ARM\ARMCC\include\string.h)(0x5D9B96F8)
-I (C:\Keil_v5\ARM\ARMCC\include\stdlib.h)(0x5D9B96FA)
-I (C:\Users\Adam School\AppData\Local\Arm\Packs\Keil\TM4C_DFP\1.1.0\Device\Include\TM4C123\TM4C123.h)(0x530F6376)
-I (C:\Users\Adam School\AppData\Local\Arm\Packs\Keil\TM4C_DFP\1.1.0\Device\Include\TM4C123\TM4C123GH6PM.h)(0x551052AC)
-I (C:\Users\Adam School\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include\core_cm4.h)(0x5D265596)
-I (C:\Users\Adam School\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include\cmsis_version.h)(0x5D265596)
-I (C:\Users\Adam School\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include\cmsis_compiler.h)(0x5D265596)
-I (C:\Users\Adam School\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include\cmsis_armcc.h)(0x5D265596)
-I (C:\Users\Adam School\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include\mpu_armv7.h)(0x5C9012B4)
-I (C:\Users\Adam School\AppData\Local\Arm\Packs\Keil\TM4C_DFP\1.1.0\Device\Include\TM4C123\system_TM4C123.h)(0x51B75486)
-I (..\drivers\include\gpio_port.h)(0x5E9BD2E4)
-I (..\drivers\include\driver_defines.h)(0x5E9BD2E4)
-I (C:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x5D9B96F8)
-I (C:\Keil_v5\ARM\ARMCC\include\errno.h)(0x5D9B96FA)
 I (..\peripherals\include\lcd.h)(0x5EA8C602)
-I (project_images.h)(0x5E9BD2E5)
 I (..\drivers\include\timers.h)(0x5E9BD2E4)
-I (..\peripherals\include\ps2.h)(0x5EA8C602)
-I (..\drivers\include\adc.h)(0x5E9BD2E4)
-I (..\drivers\include\gptimer.h)(0x5E9BD2E4)
-I (..\peripherals\include\launchpad_io.h)(0x5EA8C602)
-I (project_staff.h)(0x5EA8C7BB)
 I (project.h)(0x5EA8C751)
-I (project_interrupts.h)(0x5EA8C76C)
+I (project_images.h)(0x5EA9416A)
+I (project_staff.h)(0x5EA8C7BB)
 F (.\project_interrupts.h)(0x5EA8C76C)()
 F (.\project.h)(0x5EA8C751)()
-F (.\project_images.c)(0x5EA8CB55)(-c --cpu Cortex-M4.fp.sp -D__EVAL -D__MICROLIB -g -O0 --apcs=interwork -I C:\Keil_v5\ARM\Pack\ARM\CMSIS\3.20.4\CMSIS\Include -I ..\include -I ..\drivers\include -I ..\peripherals\include --debug-I.\RTE\_Project-F19-I"C:\Users\Adam School\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include"-I"C:\Users\Adam School\AppData\Local\Arm\Packs\Keil\TM4C_DFP\1.1.0\Device\Include\TM4C123"-D__UVISION_VERSION="529" -D_RTE_ -DTM4C123GH6PM-o .\obj\project_images.o --omf_browse .\obj\project_images.crf --depend .\obj\project_images.d)
-I (project_images.h)(0x5E9BD2E5)
+F (.\project_images.c)(0x5EA977FB)(-c --cpu Cortex-M4.fp.sp -D__EVAL -D__MICROLIB -g -O0 --apcs=interwork -I C:\Keil_v5\ARM\Pack\ARM\CMSIS\3.20.4\CMSIS\Include -I ..\include -I ..\drivers\include -I ..\peripherals\include --debug-I.\RTE\_Project-F19-I"C:\Users\Adam School\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include"-I"C:\Users\Adam School\AppData\Local\Arm\Packs\Keil\TM4C_DFP\1.1.0\Device\Include\TM4C123"-D__UVISION_VERSION="529" -D_RTE_ -DTM4C123GH6PM-o .\obj\project_images.o --omf_browse .\obj\project_images.crf --depend .\obj\project_images.d)
+I (project_images.h)(0x5EA9416A)
 I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5D9B96F8)
-F (.\project_images.h)(0x5E9BD2E5)()
+F (.\project_images.h)(0x5EA9416A)()
 F (.\project_staff.c)(0x5EA8CB6D)(-c --cpu Cortex-M4.fp.sp -D__EVAL -D__MICROLIB -g -O0 --apcs=interwork -I C:\Keil_v5\ARM\Pack\ARM\CMSIS\3.20.4\CMSIS\Include -I ..\include -I ..\drivers\include -I ..\peripherals\include --debug-I.\RTE\_Project-F19-I"C:\Users\Adam School\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include"-I"C:\Users\Adam School\AppData\Local\Arm\Packs\Keil\TM4C_DFP\1.1.0\Device\Include\TM4C123"-D__UVISION_VERSION="529" -D_RTE_ -DTM4C123GH6PM-o .\obj\project_staff.o --omf_browse .\obj\project_staff.crf --depend .\obj\project_staff.d)
 I (project.h)(0x5EA8C751)
 I (C:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x5D9B96FA)
@@ -115,26 +87,9 @@ I (..\drivers\include\adc.h)(0x5E9BD2E4)
 I (..\drivers\include\gptimer.h)(0x5E9BD2E4)
 I (..\peripherals\include\lcd.h)(0x5EA8C602)
 I (..\drivers\include\timers.h)(0x5E9BD2E4)
-I (project_images.h)(0x5E9BD2E5)
+I (project_images.h)(0x5EA9416A)
 I (project_staff.h)(0x5EA8C7BB)
 F (.\project_staff.h)(0x5EA8C7BB)()
-F (.\ps2.c)(0x5EA8C826)(-c --cpu Cortex-M4.fp.sp -D__EVAL -D__MICROLIB -g -O0 --apcs=interwork -I C:\Keil_v5\ARM\Pack\ARM\CMSIS\3.20.4\CMSIS\Include -I ..\include -I ..\drivers\include -I ..\peripherals\include --debug-I.\RTE\_Project-F19-I"C:\Users\Adam School\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include"-I"C:\Users\Adam School\AppData\Local\Arm\Packs\Keil\TM4C_DFP\1.1.0\Device\Include\TM4C123"-D__UVISION_VERSION="529" -D_RTE_ -DTM4C123GH6PM-o .\obj\ps2.o --omf_browse .\obj\ps2.crf --depend .\obj\ps2.d)
-I (..\peripherals\include\ps2.h)(0x5EA8C602)
-I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5D9B96F8)
-I (C:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x5D9B96F8)
-I (..\drivers\include\gpio_port.h)(0x5E9BD2E4)
-I (..\drivers\include\driver_defines.h)(0x5E9BD2E4)
-I (C:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x5D9B96FA)
-I (C:\Keil_v5\ARM\ARMCC\include\errno.h)(0x5D9B96FA)
-I (C:\Users\Adam School\AppData\Local\Arm\Packs\Keil\TM4C_DFP\1.1.0\Device\Include\TM4C123\TM4C123GH6PM.h)(0x551052AC)
-I (C:\Users\Adam School\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include\core_cm4.h)(0x5D265596)
-I (C:\Users\Adam School\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include\cmsis_version.h)(0x5D265596)
-I (C:\Users\Adam School\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include\cmsis_compiler.h)(0x5D265596)
-I (C:\Users\Adam School\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include\cmsis_armcc.h)(0x5D265596)
-I (C:\Users\Adam School\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include\mpu_armv7.h)(0x5C9012B4)
-I (C:\Users\Adam School\AppData\Local\Arm\Packs\Keil\TM4C_DFP\1.1.0\Device\Include\TM4C123\system_TM4C123.h)(0x51B75486)
-I (..\drivers\include\adc.h)(0x5E9BD2E4)
-I (..\drivers\include\gptimer.h)(0x5E9BD2E4)
 F (..\drivers\c\adc.c)(0x5E9BD2E4)(-c --cpu Cortex-M4.fp.sp -D__EVAL -D__MICROLIB -g -O0 --apcs=interwork -I C:\Keil_v5\ARM\Pack\ARM\CMSIS\3.20.4\CMSIS\Include -I ..\include -I ..\drivers\include -I ..\peripherals\include --debug-I.\RTE\_Project-F19-I"C:\Users\Adam School\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include"-I"C:\Users\Adam School\AppData\Local\Arm\Packs\Keil\TM4C_DFP\1.1.0\Device\Include\TM4C123"-D__UVISION_VERSION="529" -D_RTE_ -DTM4C123GH6PM-o .\obj\adc.o --omf_browse .\obj\adc.crf --depend .\obj\adc.d)
 I (..\drivers\include\adc.h)(0x5E9BD2E4)
 I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5D9B96F8)
@@ -149,7 +104,7 @@ I (C:\Users\Adam School\AppData\Local\Arm\Packs\Keil\TM4C_DFP\1.1.0\Device\Inclu
 I (..\drivers\include\driver_defines.h)(0x5E9BD2E4)
 I (C:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x5D9B96FA)
 I (C:\Keil_v5\ARM\ARMCC\include\errno.h)(0x5D9B96FA)
-F (..\drivers\c\gpio_port.c)(0x5E9BD2E4)(-c --cpu Cortex-M4.fp.sp -D__EVAL -D__MICROLIB -g -O0 --apcs=interwork -I C:\Keil_v5\ARM\Pack\ARM\CMSIS\3.20.4\CMSIS\Include -I ..\include -I ..\drivers\include -I ..\peripherals\include --debug-I.\RTE\_Project-F19-I"C:\Users\Adam School\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include"-I"C:\Users\Adam School\AppData\Local\Arm\Packs\Keil\TM4C_DFP\1.1.0\Device\Include\TM4C123"-D__UVISION_VERSION="529" -D_RTE_ -DTM4C123GH6PM-o .\obj\gpio_port.o --omf_browse .\obj\gpio_port.crf --depend .\obj\gpio_port.d)
+F (..\drivers\c\gpio_port.c)(0x5EA8F870)(-c --cpu Cortex-M4.fp.sp -D__EVAL -D__MICROLIB -g -O0 --apcs=interwork -I C:\Keil_v5\ARM\Pack\ARM\CMSIS\3.20.4\CMSIS\Include -I ..\include -I ..\drivers\include -I ..\peripherals\include --debug-I.\RTE\_Project-F19-I"C:\Users\Adam School\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include"-I"C:\Users\Adam School\AppData\Local\Arm\Packs\Keil\TM4C_DFP\1.1.0\Device\Include\TM4C123"-D__UVISION_VERSION="529" -D_RTE_ -DTM4C123GH6PM-o .\obj\gpio_port.o --omf_browse .\obj\gpio_port.crf --depend .\obj\gpio_port.d)
 I (..\drivers\include\driver_defines.h)(0x5E9BD2E4)
 I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5D9B96F8)
 I (C:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x5D9B96F8)
@@ -243,6 +198,24 @@ I (..\drivers\include\pc_buffer.h)(0x5EA8CCDD)
 I (C:\Keil_v5\ARM\ARMCC\include\stdlib.h)(0x5D9B96FA)
 I (..\drivers\include\uart.h)(0x5E49E40E)
 F (..\peripherals\include\ps2.h)(0x5EA8C602)()
+F (..\peripherals\include\validate.h)(0x5EA8C602)()
+F (..\peripherals\c\ps2-new.c)(0x5EA8FB13)(-c --cpu Cortex-M4.fp.sp -D__EVAL -D__MICROLIB -g -O0 --apcs=interwork -I C:\Keil_v5\ARM\Pack\ARM\CMSIS\3.20.4\CMSIS\Include -I ..\include -I ..\drivers\include -I ..\peripherals\include --debug-I.\RTE\_Project-F19-I"C:\Users\Adam School\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include"-I"C:\Users\Adam School\AppData\Local\Arm\Packs\Keil\TM4C_DFP\1.1.0\Device\Include\TM4C123"-D__UVISION_VERSION="529" -D_RTE_ -DTM4C123GH6PM-o .\obj\ps2-new.o --omf_browse .\obj\ps2-new.crf --depend .\obj\ps2-new.d)
+I (..\peripherals\include\ps2.h)(0x5EA8C602)
+I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5D9B96F8)
+I (C:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x5D9B96F8)
+I (..\drivers\include\gpio_port.h)(0x5E9BD2E4)
+I (..\drivers\include\driver_defines.h)(0x5E9BD2E4)
+I (C:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x5D9B96FA)
+I (C:\Keil_v5\ARM\ARMCC\include\errno.h)(0x5D9B96FA)
+I (C:\Users\Adam School\AppData\Local\Arm\Packs\Keil\TM4C_DFP\1.1.0\Device\Include\TM4C123\TM4C123GH6PM.h)(0x551052AC)
+I (C:\Users\Adam School\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include\core_cm4.h)(0x5D265596)
+I (C:\Users\Adam School\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include\cmsis_version.h)(0x5D265596)
+I (C:\Users\Adam School\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include\cmsis_compiler.h)(0x5D265596)
+I (C:\Users\Adam School\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include\cmsis_armcc.h)(0x5D265596)
+I (C:\Users\Adam School\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include\mpu_armv7.h)(0x5C9012B4)
+I (C:\Users\Adam School\AppData\Local\Arm\Packs\Keil\TM4C_DFP\1.1.0\Device\Include\TM4C123\system_TM4C123.h)(0x51B75486)
+I (..\drivers\include\adc.h)(0x5E9BD2E4)
+I (..\drivers\include\gptimer.h)(0x5E9BD2E4)
 F (RTE\Device\TM4C123GH6PM\startup_TM4C123.s)(0x5EA8BB43)(--cpu Cortex-M4.fp.sp --pd "__EVAL SETA 1" -g --apcs=interwork --pd "__MICROLIB SETA 1" --debug-I.\RTE\_Project-F19-I"C:\Users\Adam School\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include"-I"C:\Users\Adam School\AppData\Local\Arm\Packs\Keil\TM4C_DFP\1.1.0\Device\Include\TM4C123"--pd "__UVISION_VERSION SETA 529" --pd "_RTE_ SETA 1" --pd "TM4C123GH6PM SETA 1"--list .\lst\startup_tm4c123.lst --xref -o .\obj\startup_tm4c123.o --depend .\obj\startup_tm4c123.d)
 F (RTE\Device\TM4C123GH6PM\system_TM4C123.c)(0x5EA8BB43)(-c --cpu Cortex-M4.fp.sp -D__EVAL -D__MICROLIB -g -O0 --apcs=interwork -I C:\Keil_v5\ARM\Pack\ARM\CMSIS\3.20.4\CMSIS\Include -I ..\include -I ..\drivers\include -I ..\peripherals\include --debug-I.\RTE\_Project-F19-I"C:\Users\Adam School\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include"-I"C:\Users\Adam School\AppData\Local\Arm\Packs\Keil\TM4C_DFP\1.1.0\Device\Include\TM4C123"-D__UVISION_VERSION="529" -D_RTE_ -DTM4C123GH6PM-o .\obj\system_tm4c123.o --omf_browse .\obj\system_tm4c123.crf --depend .\obj\system_tm4c123.d)
 I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5D9B96F8)

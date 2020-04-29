@@ -34,5 +34,25 @@ extern const uint8_t invaderBitmaps[];
 extern const uint8_t invaderWidthPixels;
 extern const uint8_t invaderHeightPixels;
 
+// Bitmap info for 2D
+extern const uint8_t  Image_2DBitmaps[];
+extern const uint8_t Image_2DWidthPixels;
+extern const uint8_t Image_2DHeightPixels;
+
+extern const uint8_t  Image_3DBitmaps[];
+extern const uint8_t  Image_4DBitmaps[];
+extern const uint8_t  Image_5DBitmaps[];
+extern const uint8_t  Image_6DBitmaps[];
+extern const uint8_t  Image_7DBitmaps[];
+extern const uint8_t  Image_8DBitmaps[];
+extern const uint8_t  Image_9DBitmaps[];
+extern const uint8_t  Image_TDBitmaps[];
+extern const uint8_t  Image_JDBitmaps[];
+extern const uint8_t  Image_QDBitmaps[];
+extern const uint8_t  Image_KDBitmaps[];
+extern const uint8_t  Image_ADBitmaps[];
+
+
+
 
 #endif

@@ -26,3 +26,6 @@
 .\obj\main.o: project_staff.h
 .\obj\main.o: project.h
 .\obj\main.o: project_interrupts.h
+.\obj\main.o: ..\peripherals\include\serial_debug.h
+.\obj\main.o: ..\drivers\include\pc_buffer.h
+.\obj\main.o: ..\drivers\include\uart.h

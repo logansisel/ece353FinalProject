@@ -1,5 +1,5 @@
 .\obj\project_interrupts.o: project_interrupts.c
-.\obj\project_interrupts.o: main.h
+.\obj\project_interrupts.o: project_interrupts.h
 .\obj\project_interrupts.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
 .\obj\project_interrupts.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
 .\obj\project_interrupts.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
@@ -16,13 +16,11 @@
 .\obj\project_interrupts.o: ..\drivers\include\driver_defines.h
 .\obj\project_interrupts.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdbool.h
 .\obj\project_interrupts.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\errno.h
-.\obj\project_interrupts.o: ..\peripherals\include\lcd.h
-.\obj\project_interrupts.o: project_images.h
-.\obj\project_interrupts.o: ..\drivers\include\timers.h
 .\obj\project_interrupts.o: ..\peripherals\include\ps2.h
 .\obj\project_interrupts.o: ..\drivers\include\adc.h
 .\obj\project_interrupts.o: ..\drivers\include\gptimer.h
-.\obj\project_interrupts.o: ..\peripherals\include\launchpad_io.h
-.\obj\project_interrupts.o: project_staff.h
+.\obj\project_interrupts.o: ..\peripherals\include\lcd.h
+.\obj\project_interrupts.o: ..\drivers\include\timers.h
 .\obj\project_interrupts.o: project.h
-.\obj\project_interrupts.o: project_interrupts.h
+.\obj\project_interrupts.o: project_images.h
+.\obj\project_interrupts.o: project_staff.h

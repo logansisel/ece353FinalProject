@@ -393,16 +393,6 @@
               <FilePath>.\main.h</FilePath>
             </File>
             <File>
-              <FileName>project_hardware_init.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\project_hardware_init.c</FilePath>
-            </File>
-            <File>
-              <FileName>project_hardware_init.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\project_hardware_init.h</FilePath>
-            </File>
-            <File>
               <FileName>project_interrupts.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\project_interrupts.c</FilePath>
@@ -436,11 +426,6 @@
               <FileName>project_staff.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\project_staff.h</FilePath>
-            </File>
-            <File>
-              <FileName>ps2.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\ps2.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -496,6 +481,16 @@
               <FileName>ps2.h</FileName>
               <FileType>5</FileType>
               <FilePath>..\peripherals\include\ps2.h</FilePath>
+            </File>
+            <File>
+              <FileName>validate.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\peripherals\include\validate.h</FilePath>
+            </File>
+            <File>
+              <FileName>ps2-new.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\peripherals\c\ps2-new.c</FilePath>
             </File>
           </Files>
         </Group>

@@ -44,7 +44,7 @@ static bool verify_base_addr(uint32_t baseAddr)
        return false;
      }
    }
-}
+	}
 
 /****************************************************************************
  * Return the GPIO IRQ Number

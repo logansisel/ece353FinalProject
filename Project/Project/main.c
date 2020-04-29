@@ -22,6 +22,31 @@
 
 #include "main.h"
 
+const int dealerColor = LCD_COLOR_RED;
+const int playerColor = LCD_COLOR_YELLOW;
+const int cardWidth = 73;
+const int cardHeight = 91;
+
+const int playerCard1x = 200;
+const int playerCard1y = 270;
+const int playerCard2x = 125;
+const int playerCard2y = 270;
+const int playerCard3x = 50;
+const int playerCard3y = 270;
+const int playerCard4x = 200;
+const int playerCard4y = 177;
+
+const int dealerCard1x = 38;
+const int dealerCard1y = 45;
+const int dealerCard2x = 113;
+const int dealerCard2y = 45;
+const int dealerCard3x = 188;
+const int dealerCard3y = 45;
+const int dealerCard4x = 38;
+const int dealerCard4y = 138;
+
+
+
 
 //*****************************************************************************
 //*****************************************************************************
@@ -49,16 +74,347 @@ void EnableInterrupts(void)
 //*****************************************************************************
 void init_hardware(void)
 {
+	init_serial_debug(true,true);
+	
   lcd_config_gpio();
   lcd_config_screen();
   lcd_clear_screen(LCD_COLOR_BLACK);
   ps2_initialize();
   
-	// timer 1 is for blinking LED, timer 4 is for checking ADC
-  gp_timer_config_32(TIMER1_BASE,TIMER_TAMR_TAMR_PERIOD, 1000000, false, true);
+  // We need these 3 values or else it doesn't work, not sure why
+  gp_timer_config_32(TIMER2_BASE,TIMER_TAMR_TAMR_PERIOD, 1000000, false, true);
+  gp_timer_config_32(TIMER3_BASE,TIMER_TAMR_TAMR_PERIOD, 500000, false, true);
   gp_timer_config_32(TIMER4_BASE,TIMER_TAMR_TAMR_PERIOD, 50000, false, true);
 }
 
+void _2D( int x, int y){
+	
+	int color = 0;
+	if(y > 150){
+		color = playerColor;
+	}else {
+		color = dealerColor;
+	}
+		  lcd_draw_image(
+                          x,                       // X Center Point
+                          cardWidth,   // Image Horizontal Width
+                          y,                       // Y Center Point
+                          cardHeight,  // Image Vertical Height
+                          Image_2DBitmaps,       // Image
+                          LCD_COLOR_BLUE,           // Foreground Color
+                          color         // Background Color
+                        );
+	
+	
+}
+
+void _3D( int x, int y){
+	
+	int color = 0;
+	if(y > 150){
+		color = playerColor;
+	}else {
+		color = dealerColor;
+	}
+	
+		lcd_draw_image(
+                          x,                       // X Center Point
+                          cardWidth,   // Image Horizontal Width
+                          y,                       // Y Center Point
+                          cardHeight,  // Image Vertical Height
+                          Image_3DBitmaps,       // Image
+                          LCD_COLOR_BLUE,           // Foreground Color
+                          color         // Background Color
+                        );
+}
+
+void _4D(int x, int y){
+	
+	int color = 0;
+	if(y > 150){
+		color = playerColor;
+	}else {
+		color = dealerColor;
+	}
+	
+			lcd_draw_image(
+                          x,                       // X Center Point
+                          cardWidth,   // Image Horizontal Width
+                          y,                       // Y Center Point
+                          cardHeight,  // Image Vertical Height
+                          Image_4DBitmaps,       // Image
+                          LCD_COLOR_BLUE,           // Foreground Color
+                          color          // Background Color
+                        );
+}
+
+void _5D(int x, int y){
+	
+	int color = 0;
+	if(y > 150){
+		color = playerColor;
+	}else {
+		color = dealerColor;
+	}
+		lcd_draw_image(
+                          x,                       // X Center Point
+                          cardWidth + 2,   // Image Horizontal Width
+                          y,                       // Y Center Point
+                          cardHeight,  // Image Vertical Height
+                          Image_5DBitmaps,       // Image
+                          LCD_COLOR_BLUE,           // Foreground Color
+                          color          // Background Color
+                        );
+}
+void _6D(int x, int y){
+	
+	int color = 0;
+	if(y > 150){
+		color = playerColor;
+	}else {
+		color = dealerColor;
+	}
+	
+				lcd_draw_image(
+                          x,                       // X Center Point
+                          cardWidth,   // Image Horizontal Width
+                          y,                       // Y Center Point
+                          cardHeight,  // Image Vertical Height
+                          Image_6DBitmaps,       // Image
+                          LCD_COLOR_BLUE,           // Foreground Color
+                          color         // Background Color
+                        );
+	
+}
+void _7D(int x, int y){
+	
+	int color = 0;
+	if(y > 150){
+		color = playerColor;
+	}else {
+		color = dealerColor;
+	}
+					lcd_draw_image(
+                          x,                       // X Center Point
+                          cardWidth,   // Image Horizontal Width
+                          y,                       // Y Center Point
+                          cardHeight,  // Image Vertical Height
+                          Image_7DBitmaps,       // Image
+                          LCD_COLOR_BLUE,           // Foreground Color
+                          color          // Background Color
+                        );
+	
+}
+void _8D(int x, int y){
+	
+	         int color = 0;
+	if(y > 150){
+		color = playerColor;
+	}else {
+		color = dealerColor;
+	}
+	
+						lcd_draw_image(
+                          x,                       // X Center Point
+                          cardWidth,   // Image Horizontal Width
+                          y,                       // Y Center Point
+                          cardHeight,  // Image Vertical Height
+                          Image_8DBitmaps,       // Image
+                          LCD_COLOR_BLUE,           // Foreground Color
+                          color        // Background Color
+                        );
+	
+}
+void _9D(int x, int y){
+	
+	int color = 0;
+	if(y > 150){
+		color = playerColor;
+	}else {
+		color = dealerColor;
+	}
+	
+	lcd_draw_image(
+                          x,                       // X Center Point
+                          cardWidth,   // Image Horizontal Width
+                          y,                       // Y Center Point
+                          cardHeight,  // Image Vertical Height
+                          Image_9DBitmaps,       // Image
+                          LCD_COLOR_BLUE,           // Foreground Color
+                          color         // Background Color
+                        );
+	
+}
+void _TD(int x, int y){
+	
+		int color = 0;
+	if(y > 150){
+		color = playerColor;
+	}else {
+		color = dealerColor;
+	}
+	
+	lcd_draw_image(
+                          x,                       // X Center Point
+                          cardWidth,   // Image Horizontal Width
+                          y,                       // Y Center Point
+                          cardHeight,  // Image Vertical Height
+                          Image_TDBitmaps,       // Image
+                          LCD_COLOR_BLUE,           // Foreground Color
+                          color         // Background Color
+                        );
+	
+}
+void _JD(int x, int y){
+	
+		int color = 0;
+	if(y > 150){
+		color = playerColor;
+	}else {
+		color = dealerColor;
+	}
+	
+	lcd_draw_image(
+                          x,                       // X Center Point
+                          cardWidth,   // Image Horizontal Width
+                          y,                       // Y Center Point
+                          cardHeight,  // Image Vertical Height
+                          Image_JDBitmaps,       // Image
+                          LCD_COLOR_BLUE,           // Foreground Color
+                          color         // Background Color
+                        );
+	
+}
+void _QD(int x, int y){
+	
+		int color = 0;
+	if(y > 150){
+		color = playerColor;
+	}else {
+		color = dealerColor;
+	}
+	
+	lcd_draw_image(
+                          x,                       // X Center Point
+                          72,   // Image Horizontal Width
+                          y,                       // Y Center Point
+                          89,  // Image Vertical Height
+                          Image_QDBitmaps,       // Image
+                          LCD_COLOR_BLUE,           // Foreground Color
+                          color         // Background Color
+                        );
+	
+}
+void _KD(int x, int y){
+	
+		int color = 0;
+	if(y > 150){
+		color = playerColor;
+	}else {
+		color = dealerColor;
+	}
+	
+	lcd_draw_image(
+                          x,                       // X Center Point
+                          71,   // Image Horizontal Width
+                          y,                       // Y Center Point
+                          89,  // Image Vertical Height
+                          Image_KDBitmaps,       // Image
+                          LCD_COLOR_BLUE,           // Foreground Color
+                          color         // Background Color
+                        );
+	
+}
+void _AD(int x, int y){
+	
+		int color = 0;
+	if(y > 150){
+		color = playerColor;
+	}else {
+		color = dealerColor;
+	}
+	
+	lcd_draw_image(
+                          x,                       // X Center Point
+                          cardWidth,   // Image Horizontal Width
+                          y,                       // Y Center Point
+                          cardHeight,  // Image Vertical Height
+                          Image_ADBitmaps,       // Image
+                          LCD_COLOR_BLUE,           // Foreground Color
+                          color         // Background Color
+                        );
+	
+}
+
+int getCard(int card, int number, int dealer){
+	
+	int x = 0;
+	int y = 0;
+	
+	if(number == 0){
+		if(dealer == 1){
+			x = dealerCard1x;
+			y = dealerCard1y;
+		}else{
+			x = playerCard1x;
+			y = playerCard1y;
+		}
+	}else if (number == 1){
+		if(dealer == 1){
+			x = dealerCard2x;
+			y = dealerCard2y;
+		}else{
+			x = playerCard2x;
+			y = playerCard2y;
+		}
+		
+	}else if (number == 2){
+		if(dealer == 1){
+			x = dealerCard3x;
+			y = dealerCard3y;
+		}else{
+			x = playerCard3x;
+			y = playerCard3y;
+		}
+	}else if (number == 3){
+		if(dealer == 1){
+			x = dealerCard4x;
+			y = dealerCard4y;
+		}else{
+			x = playerCard4x;
+			y = playerCard4y;
+		}
+	}
+	
+	if(card == 0){
+		_KD(x,y);
+	}else if (card == 1){
+		_AD(x,y);
+	}else if (card == 2){
+		_2D(x,y);
+	}else if (card == 3){
+		_3D(x,y);
+	}else if (card == 4){
+		_4D(x,y);
+	}else if (card == 5){
+		_5D(x,y);
+	}else if (card == 6){
+		_6D(x,y);
+	}else if (card == 7){
+		_7D(x,y);
+	}else if (card == 8){
+		_8D(x,y);
+	}else if (card == 9){
+		_9D(x,y);
+	}else if (card == 10){
+		_TD(x,y);
+	}else if (card == 11){
+		_JD(x,y);
+	}else if (card == 12){
+		_QD(x,y);
+	}
+	
+}
 
 int 
 main(void)
@@ -73,11 +429,13 @@ uint16_t genVal;
 uint16_t cardVal;
 bool game_over;
 	
-initialize_serial_debug();
+
 init_hardware();
 
+	
 while (1) {
 	
+	srand(46); // random seed
 	// set chip count at 4, start game
 	chipCount = 4;
 	game_over = false;
@@ -85,17 +443,16 @@ while (1) {
 	// display main menu
 	
 	// wait for screen touch
-	while(1);
-
-	// game loop
-	while (!game_over) {
+	
+	//while(1);
+  	while (!game_over) {
 		playerScore = 0;
 		botScore = 0;
 		playerCards = 0;
 		botCards = 0;
 		
 		// give bot random card
-		genVal = generate_random_number() % 13;
+		genVal = rand() % 13;
 		// update bot score
 		if (genVal == 1)
 			cardVal = 11;
@@ -106,10 +463,11 @@ while (1) {
 		botScore = botScore + cardVal;
 		botCards++;
 		// put card to screen
+		getCard(genVal,0,true); // Place first dealer card
 		// TODO
 		
 		// give player first random card
-		genVal = generate_random_number() % 13;		
+		genVal = rand() % 13;		
 		// update user score
 		if (genVal == 1)
 			cardVal = 11;
@@ -120,10 +478,11 @@ while (1) {
 		playerScore = playerScore + cardVal;
 		playerCards++;
 		// put card to screen
+		getCard(genVal,0,false); // Place first player card
 		// TODO
 		
 		// give player second random card
-		genVal = generate_random_number() % 13;
+		genVal = rand() % 13;
 		// update user score
 		if (genVal == 1) 
 			cardVal = 11;
@@ -134,6 +493,7 @@ while (1) {
 		playerScore = playerScore + cardVal;
 		playerCards++;
 		// put card to screen
+		getCard(genVal,1,false); // Place second dealer card
 		// TODO
 		
 		// wait for user input
@@ -225,10 +585,15 @@ while (1) {
 			
 		}
 		// clear screen
+		game_over = true; // Test to make it stop runnning forever
 	}
 }
+	// game loop
+
 
 // won't reach
 while(1){};
 }
+
+
 

@@ -38,44 +38,46 @@ compiling adc.c...
 ..\drivers\c\adc.c(29): warning:  #177-D: function "verify_base_addr"  was declared but never referenced
   static bool verify_base_addr(uint32_t baseAddr)
 ..\drivers\c\adc.c: 4 warnings, 0 errors
-compiling ps2.c...
-compiling project_interrupts.c...
-project.h(89): warning:  #1-D: last line of file ends without a newline
-          
-project_interrupts.c: 1 warning, 0 errors
-compiling project_hardware_init.c...
-project.h(89): warning:  #1-D: last line of file ends without a newline
-          
-project_hardware_init.c: 1 warning, 0 errors
-compiling main.c...
-project.h(89): warning:  #1-D: last line of file ends without a newline
-          
-main.c: 1 warning, 0 errors
-compiling gpio_port.c...
-..\drivers\c\gpio_port.c(82): warning:  #188-D: enumerated type mixed with another type
-         return 0;
-..\drivers\c\gpio_port.c: 1 warning, 0 errors
-compiling pc_buffer.c...
 compiling project_staff.c...
 project.h(89): warning:  #1-D: last line of file ends without a newline
           
 project_staff.c: 1 warning, 0 errors
-assembling startup_TM4C123.s...
-compiling gptimer.c...
-compiling uart.c...
-..\drivers\c\uart.c(184): warning:  #188-D: enumerated type mixed with another type
+compiling gpio_port.c...
+..\drivers\c\gpio_port.c(82): warning:  #188-D: enumerated type mixed with another type
          return 0;
-..\drivers\c\uart.c: 1 warning, 0 errors
+..\drivers\c\gpio_port.c: 1 warning, 0 errors
+compiling project_interrupts.c...
+project.h(89): warning:  #1-D: last line of file ends without a newline
+          
+project_interrupts.c: 1 warning, 0 errors
 compiling timers.c...
 ..\drivers\c\timers.c(60): warning:  #188-D: enumerated type mixed with another type
          return 0;
 ..\drivers\c\timers.c: 1 warning, 0 errors
+compiling main.c...
+project.h(89): warning:  #1-D: last line of file ends without a newline
+          
+main.c(417): warning:  #940-D: missing return statement at end of non-void function "getCard" 
+  }
+main.c(522): warning:  #111-D: statement is unreachable
+  			if (playerCards >= 4) {
+main.c(595): warning:  #128-D: loop is not reachable
+  while(1){};
+main.c: 4 warnings, 0 errors
+compiling gptimer.c...
+compiling pc_buffer.c...
+assembling startup_TM4C123.s...
+compiling uart.c...
+..\drivers\c\uart.c(184): warning:  #188-D: enumerated type mixed with another type
+         return 0;
+..\drivers\c\uart.c: 1 warning, 0 errors
 compiling system_TM4C123.c...
+compiling ps2-new.c...
 compiling serial_debug.c...
 compiling lcd.c...
 linking...
-Program Size: Code=6964 RO-data=1580 RW-data=20 ZI-data=4124  
-".\obj\ece353_base_project.axf" - 0 Error(s), 11 Warning(s).
+Program Size: Code=8724 RO-data=13076 RW-data=40 ZI-data=4128  
+".\obj\ece353_base_project.axf" - 0 Error(s), 13 Warning(s).
 
 <h2>Software Packages used:</h2>
 
@@ -101,9 +103,9 @@ Package Vendor: Keil
    * Component: ARM::CMSIS:CORE:5.3.0
 
    * Component: Keil::Device:Startup:1.0.1
-      Source file:   Device\Source\ARM\startup_TM4C123.s
       Source file:   Device\Source\system_TM4C123.c
       Include file:  Device\Include\TM4C123\TM4C123.h
+      Source file:   Device\Source\ARM\startup_TM4C123.s
 Build Time Elapsed:  00:00:01
 </pre>
 </body>
