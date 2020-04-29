@@ -2,7 +2,6 @@
 ".\obj\main.o"
 ".\obj\project_interrupts.o"
 ".\obj\project_images.o"
-".\obj\project_staff.o"
 ".\obj\adc.o"
 ".\obj\gpio_port.o"
 ".\obj\timers.o"

@@ -32,10 +32,20 @@
 #include "ps2.h"
 #include "lcd.h"
 #include "timers.h"
-#include "project.h"
 #include "project_images.h"
-#include "project_staff.h"
+#include "ws2812b.h"
 
+typedef enum{
+  PS2_DIR_UP,
+  PS2_DIR_DOWN,
+  PS2_DIR_LEFT,
+  PS2_DIR_RIGHT,
+  PS2_DIR_CENTER,
+  PS2_DIR_INIT,
+} PS2_DIR_t;
+
+extern volatile bool ALERT_DRAW;
+extern void WS2812B_write(uint32_t port_base_addr, uint8_t *led_array_base_addr, uint16_t num_leds);
 
 #endif
 

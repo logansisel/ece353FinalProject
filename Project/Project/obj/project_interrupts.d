@@ -21,6 +21,5 @@
 .\obj\project_interrupts.o: ..\drivers\include\gptimer.h
 .\obj\project_interrupts.o: ..\peripherals\include\lcd.h
 .\obj\project_interrupts.o: ..\drivers\include\timers.h
-.\obj\project_interrupts.o: project.h
 .\obj\project_interrupts.o: project_images.h
-.\obj\project_interrupts.o: project_staff.h
+.\obj\project_interrupts.o: ..\peripherals\include\ws2812b.h

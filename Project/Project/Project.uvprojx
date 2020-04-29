@@ -403,11 +403,6 @@
               <FilePath>.\project_interrupts.h</FilePath>
             </File>
             <File>
-              <FileName>project.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\project.h</FilePath>
-            </File>
-            <File>
               <FileName>project_images.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\project_images.c</FilePath>
@@ -416,16 +411,6 @@
               <FileName>project_images.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\project_images.h</FilePath>
-            </File>
-            <File>
-              <FileName>project_staff.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\project_staff.c</FilePath>
-            </File>
-            <File>
-              <FileName>project_staff.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\project_staff.h</FilePath>
             </File>
           </Files>
         </Group>

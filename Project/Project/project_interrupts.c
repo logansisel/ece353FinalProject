@@ -3,10 +3,9 @@
 static volatile uint16_t PS2_X_DATA = 0;
 static volatile uint16_t PS2_Y_DATA = 0;
 static volatile PS2_DIR_t PS2_DIR = PS2_DIR_CENTER;
-int count = 0; // Global variable to keep track of count
 PS2_DIR_t direction = PS2_DIR_CENTER; // Keep track of spaceship direction
-
-
+WS2812B_t LEDs[8];
+volatile bool ALERT_DRAW = false;
 //*****************************************************************************
 // Returns the most current direction that was pressed.
 //*****************************************************************************
@@ -29,37 +28,34 @@ PS2_DIR_t ps2_get_direction(void)
 }
 
 //*****************************************************************************
-// TIMER2 ISR is used to determine when to move the Invader
+// TIMER2 ISR is used to blink LED
 //*****************************************************************************
 void TIMER2A_Handler(void)
 {	
-	if(!true){ // Check if not touching
-		//move_image(PS2_DIR, 0,0,0,0); // Move imagine accordingly
-		//ALERT_INVADER = true;
+	int i;
+	for (i = 0; i < 8; i++) {
+		LEDs[i].green = 0x00;
+		LEDs[i].red = 0x00;
+		LEDs[i].blue = 0x00;
 	}
-    
+	LEDs[0].blue = 0x80;
+	//WS2812B_write(WS2812B_GPIO_ADDR, (uint8_t*)LEDs, 8);
+	for (i = 0; i < 10000; i++){}
+  LEDs[0].blue = 0x00;
+	//WS2812B_write(WS2812B_GPIO_ADDR, (uint8_t*)LEDs, 8);		
     // Clear the interrupt
 	TIMER2->ICR |= TIMER_ICR_TATOCINT;
 }
 
 //*****************************************************************************
-// TIMER3 ISR is used to determine when to move the spaceship
+// TIMER3 ISR is used to determine when to draw a card
 //*****************************************************************************
 void TIMER3A_Handler(void)
 {	
-	
-	while(false || count == 0){ // Check if the count is zero or if contacting edge
-		
-		direction = get_new_direction(direction); // Random generate direction
-		count = get_new_move_count(); // Random generate movement count
-		
+	// if pulled down, draw a card
+	if (PS2_DIR == PS2_DIR_DOWN){
+		ALERT_DRAW = true;
 	}
-	
-	count = count - 1; // One less
-	
-	//move_image(direction, 0, 0, 0, 0); // Draw image at new position
-	
-  //ALERT_SPACE_SHIP = true;
 	// Clear the interrupt
 	TIMER3->ICR |= TIMER_ICR_TATOCINT;  
 }
@@ -73,10 +69,7 @@ void TIMER4A_Handler(void)
 	ADC0->PSSI |= ADC_PSSI_SS2;
 	// Clear the interrupt
 	TIMER4->ICR |= TIMER_ICR_TATOCINT; 
-	
-	
-	
-	
+
 }
 
 //*****************************************************************************

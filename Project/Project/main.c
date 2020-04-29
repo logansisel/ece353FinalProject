@@ -47,7 +47,6 @@ const int dealerCard4y = 138;
 
 
 
-
 //*****************************************************************************
 //*****************************************************************************
 void DisableInterrupts(void)
@@ -446,6 +445,7 @@ while (1) {
 	// set chip count at 4, start game
 	chipCount = 4;
 	game_over = false;
+	ALERT_DRAW = false;
 	
 	// display main menu
 	lcd_clear_screen(LCD_COLOR_BLACK);
@@ -506,12 +506,15 @@ while (1) {
 		getCard(genVal,1,false); // Place second player card
 		
 		// wait for user input
-		waitTime(50000);
+		
 		while (1) {	
+			
 			// user inputs draw card
-			if (1) { // TODO change condition to input
+			if (ALERT_DRAW) { // TODO change condition to input
+				waitTime(50000);
+				ALERT_DRAW = false;
 				// give player random card
-				genVal = generate_random_number() % 13;		
+				genVal = rand() % 13;		
 				// update user score
 				if (genVal == 1)
 					cardVal = 11;
@@ -526,7 +529,7 @@ while (1) {
 				
 			}
 			// user inputs stay with current cards
-			if (1) { // TODO change condition to input
+			if (0) { // TODO change condition to input
 				break;
 			}
 			// user can have max 4 cards, auto stay if at 4
@@ -539,9 +542,9 @@ while (1) {
 		// make dealer bot pick cards
 		while (1) {
 			// bot draws until score is at least 17, maximum 4 total cards, or beats player
-			if (botScore < 17 && botCards < 4 && botScore <= playerScore) {
+			if (botScore < 17 && botCards < 4 && (botScore <= playerScore || botCards < 2))  {
 				// give bot random card
-				genVal = generate_random_number() % 13;
+				genVal = rand() % 13;
 				// update bot score
 				if (genVal == 1)
 					cardVal = 11;
@@ -569,7 +572,15 @@ while (1) {
 			// TODO
 			// display win message
 			// TODO
-			lcd_draw_char(105, 30, 170, 30, (const unsigned char *)"W", LCD_COLOR_GREEN, LCD_COLOR_BLACK, 0);
+				lcd_draw_image(
+                          105,                       // X Center Point
+                          37,   // Image Horizontal Width
+                          170,                       // Y Center Point
+                          35,  // Image Vertical Height
+                          winHand,       // Image
+                          LCD_COLOR_GREEN,           // Foreground Color
+                          LCD_COLOR_BLACK        // Background Color
+                        );
 		}
 		// bot wins round
 		else {
@@ -579,13 +590,29 @@ while (1) {
 				// TODO
 				// display loss message
 				// TODO
-				lcd_draw_char(105, 30, 170, 30, (const unsigned char *)"L", LCD_COLOR_RED, LCD_COLOR_BLACK, 0);
+								lcd_draw_image(
+                          105,                       // X Center Point
+                          32,   // Image Horizontal Width
+                          170,                       // Y Center Point
+                          32,  // Image Vertical Height
+                          loseHand,       // Image
+                          LCD_COLOR_RED,           // Foreground Color
+                          LCD_COLOR_BLACK        // Background Color
+                        );
 			}
 			// tie
 			if (playerScore == botScore) {
 				// display tie message
 				// TODO
-				lcd_draw_char(105, 30, 170, 30, (const unsigned char *)"T", LCD_COLOR_BLUE2, LCD_COLOR_BLACK, 0);
+					lcd_draw_image(
+                          105,                       // X Center Point
+                          47,   // Image Horizontal Width
+                          170,                       // Y Center Point
+                          18,  // Image Vertical Height
+                          push,       // Image
+                          LCD_COLOR_YELLOW,           // Foreground Color
+                          LCD_COLOR_BLACK        // Background Color
+                        );
 			}
 		}
 		
@@ -613,3 +640,6 @@ while (1) {
 // won't reach
 while(1){};
 }
+
+
+

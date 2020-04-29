@@ -35,12 +35,15 @@
 #include "timers.h"
 #include "ps2.h"
 #include "launchpad_io.h"
-#include "project_staff.h"
-#include "project.h"
 #include "project_interrupts.h"
 #include "serial_debug.h"
+#include "validate.h"
 
+void init_hardware(void);
 extern void initialize_serial_debug(void);
 extern void put_string(char *data);
+
+
+
 
 #endif

@@ -24,15 +24,7 @@
 
 #include <stdint.h>
 
-/* Bitmap info for space_ship */
-extern const uint8_t space_shipBitmaps[];
-extern const uint8_t space_shipWidthPixels;
-extern const uint8_t space_shipHeightPixels;
-
-// Bitmap info for invader
-extern const uint8_t invaderBitmaps[];
-extern const uint8_t invaderWidthPixels;
-extern const uint8_t invaderHeightPixels;
+          
 
 // Bitmap info for 2D
 extern const uint8_t  Image_2DBitmaps[];
@@ -51,7 +43,9 @@ extern const uint8_t  Image_JDBitmaps[];
 extern const uint8_t  Image_QDBitmaps[];
 extern const uint8_t  Image_KDBitmaps[];
 extern const uint8_t  Image_ADBitmaps[];
-
+extern const uint8_t  winHand[];
+extern const uint8_t  loseHand[];
+extern const uint8_t  push[];
 
 
 
