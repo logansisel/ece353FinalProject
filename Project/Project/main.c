@@ -437,6 +437,17 @@ uint16_t cardVal;
 bool game_over;
 	
 init_hardware();
+	
+						lcd_draw_image(
+                          115,                       // X Center Point
+                          174,   // Image Horizontal Width
+                          170,                       // Y Center Point
+                          279,  // Image Vertical Height
+                          homeScreen,       // Image
+                          LCD_COLOR_GREEN,           // Foreground Color
+                          LCD_COLOR_BLACK        // Background Color
+                        );
+			waitTime(500000);
 
 // infinite game loop	
 while (1) {
@@ -511,8 +522,8 @@ while (1) {
 			
 			// user inputs draw card
 			if (ALERT_DRAW) { // TODO change condition to input
-				waitTime(50000);
-				ALERT_DRAW = false;
+				waitTime(10000);
+				
 				// give player random card
 				genVal = rand() % 13;		
 				// update user score
@@ -526,7 +537,8 @@ while (1) {
 				playerCards++;
 				// put card to screen
 				getCard(genVal,playerCards-1,false);
-				
+				waitTime(50000);
+				ALERT_DRAW = false;
 			}
 			// user inputs stay with current cards
 			if (0) { // TODO change condition to input
@@ -542,7 +554,7 @@ while (1) {
 		// make dealer bot pick cards
 		while (1) {
 			// bot draws until score is at least 17, maximum 4 total cards, or beats player
-			if (botScore < 17 && botCards < 4 && (botScore <= playerScore || botCards < 2))  {
+			if (botScore < 17 && botCards < 4 && (botScore <= playerScore || botCards < 2) && (playerScore < 22 || botCards < 2))  {
 				// give bot random card
 				genVal = rand() % 13;
 				// update bot score

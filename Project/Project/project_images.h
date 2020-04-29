@@ -46,7 +46,7 @@ extern const uint8_t  Image_ADBitmaps[];
 extern const uint8_t  winHand[];
 extern const uint8_t  loseHand[];
 extern const uint8_t  push[];
-
+extern const uint8_t  homeScreen[];
 
 
 #endif
