@@ -87,6 +87,14 @@ void init_hardware(void)
   gp_timer_config_32(TIMER4_BASE,TIMER_TAMR_TAMR_PERIOD, 50000, false, true);
 }
 
+void waitTime(int time) {
+	int i;
+	time = time * 100;
+	for (i = 0; i < time; i++) {
+		
+	}
+}
+
 void _2D( int x, int y){
 	
 	int color = 0;
@@ -429,10 +437,9 @@ uint16_t genVal;
 uint16_t cardVal;
 bool game_over;
 	
-
 init_hardware();
 
-	
+// infinite game loop	
 while (1) {
 	
 	srand(46); // random seed
@@ -441,31 +448,19 @@ while (1) {
 	game_over = false;
 	
 	// display main menu
+	lcd_clear_screen(LCD_COLOR_BLACK);
+	// TODO draw home screen
 	
 	// wait for screen touch
+	//while(1); // TODO get user input
 	
-	//while(1);
-  	while (!game_over) {
+  while (!game_over) {
 		playerScore = 0;
 		botScore = 0;
 		playerCards = 0;
 		botCards = 0;
 		
-		// give bot random card
-		genVal = rand() % 13;
-		// update bot score
-		if (genVal == 1)
-			cardVal = 11;
-		else if (genVal == 11 || genVal == 12 || genVal == 0)
-			cardVal = 10;
-		else
-			cardVal = genVal;
-		botScore = botScore + cardVal;
-		botCards++;
-		// put card to screen
-		getCard(genVal,0,true); // Place first dealer card
-		// TODO
-		
+		waitTime(50000);
 		// give player first random card
 		genVal = rand() % 13;		
 		// update user score
@@ -479,8 +474,23 @@ while (1) {
 		playerCards++;
 		// put card to screen
 		getCard(genVal,0,false); // Place first player card
-		// TODO
 		
+		waitTime(50000);
+		// give bot random card
+		genVal = rand() % 13;
+		// update bot score
+		if (genVal == 1)
+			cardVal = 11;
+		else if (genVal == 11 || genVal == 12 || genVal == 0)
+			cardVal = 10;
+		else
+			cardVal = genVal;
+		botScore = botScore + cardVal;
+		botCards++;
+		// put card to screen
+		getCard(genVal,0,true); // Place first dealer card
+		
+		waitTime(50000);
 		// give player second random card
 		genVal = rand() % 13;
 		// update user score
@@ -493,13 +503,13 @@ while (1) {
 		playerScore = playerScore + cardVal;
 		playerCards++;
 		// put card to screen
-		getCard(genVal,1,false); // Place second dealer card
-		// TODO
+		getCard(genVal,1,false); // Place second player card
 		
 		// wait for user input
+		waitTime(50000);
 		while (1) {	
 			// user inputs draw card
-			if (1) {
+			if (1) { // TODO change condition to input
 				// give player random card
 				genVal = generate_random_number() % 13;		
 				// update user score
@@ -512,10 +522,11 @@ while (1) {
 				playerScore = playerScore + cardVal;
 				playerCards++;
 				// put card to screen
-				// TODO
+				getCard(genVal,playerCards-1,false);
+				
 			}
 			// user inputs stay with current cards
-			if (1) {
+			if (1) { // TODO change condition to input
 				break;
 			}
 			// user can have max 4 cards, auto stay if at 4
@@ -524,10 +535,11 @@ while (1) {
 			}
 		}
 		
+		waitTime(50000);
 		// make dealer bot pick cards
 		while (1) {
-			// bot draws until score is at least 17, maximum 4 total cards
-			if (botScore < 17 && botCards < 4) {
+			// bot draws until score is at least 17, maximum 4 total cards, or beats player
+			if (botScore < 17 && botCards < 4 && botScore <= playerScore) {
 				// give bot random card
 				genVal = generate_random_number() % 13;
 				// update bot score
@@ -540,11 +552,14 @@ while (1) {
 				botScore = botScore + cardVal;
 				botCards++;
 				// put card to screen
-				// TODO
+				getCard(genVal,botCards-1,true);
+				waitTime(50000);
 			}
 			else
 				break;
 		}
+		waitTime(10000);
+		
 		
 		// turn over, determine winner	
 		// player wins round
@@ -554,46 +569,47 @@ while (1) {
 			// TODO
 			// display win message
 			// TODO
+			lcd_draw_char(105, 30, 170, 30, (const unsigned char *)"W", LCD_COLOR_GREEN, LCD_COLOR_BLACK, 0);
 		}
 		// bot wins round
 		else {
-			if (playerScore < botScore) {
+			if (playerScore < botScore || playerScore >= 22) {
 				chipCount--;
 				// update LEDs
 				// TODO
 				// display loss message
 				// TODO
+				lcd_draw_char(105, 30, 170, 30, (const unsigned char *)"L", LCD_COLOR_RED, LCD_COLOR_BLACK, 0);
 			}
 			// tie
 			if (playerScore == botScore) {
 				// display tie message
 				// TODO
+				lcd_draw_char(105, 30, 170, 30, (const unsigned char *)"T", LCD_COLOR_BLUE2, LCD_COLOR_BLACK, 0);
 			}
 		}
 		
+		waitTime(500000);
+		lcd_clear_screen(LCD_COLOR_BLACK);
+		
 		// check if game is over
-		// player lost game
-		if (chipCount == 0) {
-			// display loss message
-			game_over = true;
-			
+		if (chipCount % 8 == 0) {		
+			game_over = true;	
 		}
-		// player won game
-		if (chipCount == 8) {
-			// display win message
-			game_over = true;
-			
-		}
-		// clear screen
-		game_over = true; // Test to make it stop runnning forever
+		//game_over = true; // Test to make it stop runnning forever
 	}
+	if (chipCount == 0) {
+		// display loss message
+			
+	}
+	// player won game
+	if (chipCount == 8) {
+		// display win message
+	
+	}		
 }
-	// game loop
 
 
 // won't reach
 while(1){};
 }
-
-
-
