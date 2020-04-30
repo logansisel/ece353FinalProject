@@ -38,12 +38,11 @@
 #include "project_interrupts.h"
 #include "serial_debug.h"
 #include "validate.h"
+#include "ft6x06.h"
+#include "eeprom.h"
+#include "ws2812b.h"
 
 void init_hardware(void);
-extern void initialize_serial_debug(void);
-extern void put_string(char *data);
-
-
 
 
 #endif

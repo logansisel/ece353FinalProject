@@ -447,6 +447,11 @@
               <FileType>1</FileType>
               <FilePath>..\drivers\c\pc_buffer.c</FilePath>
             </File>
+            <File>
+              <FileName>i2c.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\drivers\c\i2c.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -476,6 +481,21 @@
               <FileName>ps2-new.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\peripherals\c\ps2-new.c</FilePath>
+            </File>
+            <File>
+              <FileName>ft6x06.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\peripherals\c\ft6x06.c</FilePath>
+            </File>
+            <File>
+              <FileName>ws2812b.s</FileName>
+              <FileType>2</FileType>
+              <FilePath>..\peripherals\c\ws2812b.s</FilePath>
+            </File>
+            <File>
+              <FileName>eeprom.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\peripherals\c\eeprom.c</FilePath>
             </File>
           </Files>
         </Group>

@@ -6,6 +6,7 @@ static volatile PS2_DIR_t PS2_DIR = PS2_DIR_CENTER;
 PS2_DIR_t direction = PS2_DIR_CENTER; // Keep track of spaceship direction
 WS2812B_t LEDs[8];
 volatile bool ALERT_DRAW = false;
+volatile bool ALERT_STAY = false;
 //*****************************************************************************
 // Returns the most current direction that was pressed.
 //*****************************************************************************
@@ -38,12 +39,12 @@ void TIMER2A_Handler(void)
 		LEDs[i].red = 0x00;
 		LEDs[i].blue = 0x00;
 	}
-	LEDs[0].blue = 0x80;
+	LEDs[1].green = 0x80;
 	//WS2812B_write(WS2812B_GPIO_ADDR, (uint8_t*)LEDs, 8);
 	for (i = 0; i < 10000; i++){}
   LEDs[0].blue = 0x00;
 	//WS2812B_write(WS2812B_GPIO_ADDR, (uint8_t*)LEDs, 8);		
-    // Clear the interrupt
+  // Clear the interrupt
 	TIMER2->ICR |= TIMER_ICR_TATOCINT;
 }
 
@@ -55,6 +56,10 @@ void TIMER3A_Handler(void)
 	// if pulled down, draw a card
 	if (PS2_DIR == PS2_DIR_DOWN){
 		ALERT_DRAW = true;
+	}
+	// if pulled down, draw a card
+	if (PS2_DIR == PS2_DIR_UP){
+		ALERT_STAY = true;
 	}
 	// Clear the interrupt
 	TIMER3->ICR |= TIMER_ICR_TATOCINT;  

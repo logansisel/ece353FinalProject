@@ -47,6 +47,9 @@ extern const uint8_t  winHand[];
 extern const uint8_t  loseHand[];
 extern const uint8_t  push[];
 extern const uint8_t  homeScreen[];
-
-
+extern const uint8_t  highScore4[];
+extern const uint8_t  highScore5[];
+extern const uint8_t  highScore6[];
+extern const uint8_t  highScore7[];
+extern const uint8_t  highScore8[];
 #endif

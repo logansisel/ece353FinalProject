@@ -80,11 +80,12 @@ void init_hardware(void)
   lcd_clear_screen(LCD_COLOR_BLACK);
   ps2_initialize();
 	ft6x06_init();
+	eeprom_init();
   
   // We need these 3 values or else it doesn't work, not sure why
-  gp_timer_config_32(TIMER2_BASE,TIMER_TAMR_TAMR_PERIOD, 1000000, false, true);
+  gp_timer_config_32(TIMER2_BASE,TIMER_TAMR_TAMR_PERIOD, 50000000, false, true);
   gp_timer_config_32(TIMER3_BASE,TIMER_TAMR_TAMR_PERIOD, 500000, false, true);
-  gp_timer_config_32(TIMER4_BASE,TIMER_TAMR_TAMR_PERIOD, 50000, false, true);
+  gp_timer_config_32(TIMER4_BASE,TIMER_TAMR_TAMR_PERIOD, 500000, false, true);
 }
 
 void waitTime(int time) {
@@ -424,10 +425,43 @@ int getCard(int card, int number, int dealer){
 	
 }
 
+
+void highestScore(int myScore){
+	
+	if(myScore == 4){
+		
+		lcd_draw_image(115, 142, 170, 165, highScore4, LCD_COLOR_RED, LCD_COLOR_BLACK);
+		
+		
+		
+	}else if(myScore == 5){
+		lcd_draw_image(115, 123, 170, 185, highScore5, LCD_COLOR_RED, LCD_COLOR_BLACK);
+		
+	}else if(myScore == 6){
+		
+		lcd_draw_image(115, 148, 170, 202, highScore6, LCD_COLOR_RED, LCD_COLOR_BLACK);
+		
+		
+	}else if (myScore == 7){
+		
+		lcd_draw_image(115, 132, 170, 175, highScore7, LCD_COLOR_RED, LCD_COLOR_BLACK);
+		
+	}else if (myScore == 8){
+		
+		lcd_draw_image(115, 141, 170, 174, highScore8, LCD_COLOR_RED, LCD_COLOR_BLACK);
+	}else{
+		
+	}
+	
+	waitTime(100000);
+	
+}
+
 int 
 main(void)
 {
 	
+
 uint8_t chipCount;
 uint8_t playerScore;
 uint8_t botScore;
@@ -435,10 +469,17 @@ uint8_t playerCards;
 uint8_t botCards;
 uint16_t genVal;	
 uint16_t cardVal;
+uint8_t highScore;
 bool game_over;
 	
 init_hardware();
-srand(69); // random seed
+srand(999); // random seed
+
+// get highest chip count and write to screen
+eeprom_byte_read(I2C1_BASE, 256, &highScore);
+highestScore(highScore);
+printf("Highest Chip Count: %d\n", highScore);
+//TODO
 	
 // infinite game loop	
 while (1) {
@@ -450,12 +491,17 @@ while (1) {
 	
 	// display main menu
 	lcd_clear_screen(LCD_COLOR_BLACK);
-	// TODO draw home screen
 	lcd_draw_image(115, 174, 170, 279, homeScreen, LCD_COLOR_GREEN, LCD_COLOR_BLACK);
-	waitTime(500000);
 	// wait for screen touch
-	//while(1); // TODO get user input
-	ft6x06_read_td_status();
+	while(1){
+		if(0) { // TODO check button press
+			eeprom_byte_write(I2C1_BASE, 256, 4);
+		}
+		
+		if (ft6x06_read_td_status() == 1)
+			break;
+	}
+	
 	lcd_clear_screen(LCD_COLOR_BLACK);
 	
   while (!game_over) {
@@ -538,8 +584,8 @@ while (1) {
 				ALERT_STAY = false;
 				break;
 			}
-			// user can have max 4 cards, auto stay if at 4
-			if (playerCards >= 4) {
+			// user can have max 4 cards, auto stay if at 4 or bust
+			if (playerCards >= 4 || playerScore >= 21) {
 				break;
 			}
 		}
@@ -548,7 +594,7 @@ while (1) {
 		// make dealer bot pick cards
 		while (1) {
 			// bot draws until score is at least 17, maximum 4 total cards, or beats player
-			if (botScore < 17 && botCards < 4 && (botScore <= playerScore || botCards < 2) && (playerScore < 22 || botCards < 2))  {
+			if (botScore < 17 && botCards < 4 && (playerScore < 22 || botCards < 2))  {
 				// give bot random card
 				genVal = rand() % 13;
 				// update bot score
@@ -577,15 +623,7 @@ while (1) {
 			// update LEDs
 			// TODO
 			// display win message
-				lcd_draw_image(
-                          105,                       // X Center Point
-                          37,   // Image Horizontal Width
-                          170,                       // Y Center Point
-                          35,  // Image Vertical Height
-                          winHand,       // Image
-                          LCD_COLOR_GREEN,           // Foreground Color
-                          LCD_COLOR_BLACK        // Background Color
-                        );
+				lcd_draw_image(105, 37, 170, 35, winHand, LCD_COLOR_GREEN, LCD_COLOR_BLACK);
 		}
 		// bot wins round
 		else {
@@ -594,46 +632,39 @@ while (1) {
 				// update LEDs
 				// TODO
 				// display loss message
-								lcd_draw_image(
-                          105,                       // X Center Point
-                          32,   // Image Horizontal Width
-                          170,                       // Y Center Point
-                          32,  // Image Vertical Height
-                          loseHand,       // Image
-                          LCD_COLOR_RED,           // Foreground Color
-                          LCD_COLOR_BLACK        // Background Color
-                        );
+				lcd_draw_image(105, 32, 170, 32, loseHand, LCD_COLOR_RED, LCD_COLOR_BLACK);
 			}
 			// tie
 			if (playerScore == botScore) {
 				// display tie message
-					lcd_draw_image(
-                          105,                       // X Center Point
-                          47,   // Image Horizontal Width
-                          170,                       // Y Center Point
-                          18,  // Image Vertical Height
-                          push,       // Image
-                          LCD_COLOR_YELLOW,           // Foreground Color
-                          LCD_COLOR_BLACK        // Background Color
-                        );
+				lcd_draw_image(105, 47, 170, 18, push, LCD_COLOR_YELLOW, LCD_COLOR_BLACK);
 			}
 		}
+		// update high score if passed
+		eeprom_byte_read(I2C1_BASE, 256, &highScore);
+		//printf("Highest Chip Count: %d\n", highScore);
+		//printf("Current Chip Count: %d\n", chipCount);
+		if (highScore < chipCount) {
+			eeprom_byte_write(I2C1_BASE, 256, chipCount);
+			//printf("Wrote to eeprom\n");
+		}
 		
-		waitTime(500000);
+		
+		waitTime(400000);
 		lcd_clear_screen(LCD_COLOR_BLACK);
 		
 		// check if game is over
-		if (chipCount % 8 == 0) {		
+		if (chipCount < 1 || chipCount > 7) {		
 			game_over = true;	
 		}
 		//game_over = true; // Test to make it stop runnning forever
 	}
-	if (chipCount == 0) {
+	if (chipCount < 1) {
 		// display loss message
 			
 	}
 	// player won game
-	if (chipCount == 8) {
+	if (chipCount > 7) {
 		// display win message
 	
 	}		

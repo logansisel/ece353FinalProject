@@ -45,6 +45,7 @@ typedef enum{
 } PS2_DIR_t;
 
 extern volatile bool ALERT_DRAW;
+extern volatile bool ALERT_STAY;
 extern void WS2812B_write(uint32_t port_base_addr, uint8_t *led_array_base_addr, uint16_t num_leds);
 
 #endif
