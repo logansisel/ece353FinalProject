@@ -79,6 +79,7 @@ void init_hardware(void)
   lcd_config_screen();
   lcd_clear_screen(LCD_COLOR_BLACK);
   ps2_initialize();
+	ft6x06_init();
   
   // We need these 3 values or else it doesn't work, not sure why
   gp_timer_config_32(TIMER2_BASE,TIMER_TAMR_TAMR_PERIOD, 1000000, false, true);
@@ -437,33 +438,25 @@ uint16_t cardVal;
 bool game_over;
 	
 init_hardware();
+srand(69); // random seed
 	
-						lcd_draw_image(
-                          115,                       // X Center Point
-                          174,   // Image Horizontal Width
-                          170,                       // Y Center Point
-                          279,  // Image Vertical Height
-                          homeScreen,       // Image
-                          LCD_COLOR_GREEN,           // Foreground Color
-                          LCD_COLOR_BLACK        // Background Color
-                        );
-			waitTime(500000);
-
 // infinite game loop	
 while (1) {
 	
-	srand(46); // random seed
+	
 	// set chip count at 4, start game
 	chipCount = 4;
 	game_over = false;
-	ALERT_DRAW = false;
 	
 	// display main menu
 	lcd_clear_screen(LCD_COLOR_BLACK);
 	// TODO draw home screen
-	
+	lcd_draw_image(115, 174, 170, 279, homeScreen, LCD_COLOR_GREEN, LCD_COLOR_BLACK);
+	waitTime(500000);
 	// wait for screen touch
 	//while(1); // TODO get user input
+	ft6x06_read_td_status();
+	lcd_clear_screen(LCD_COLOR_BLACK);
 	
   while (!game_over) {
 		playerScore = 0;
@@ -516,14 +509,14 @@ while (1) {
 		// put card to screen
 		getCard(genVal,1,false); // Place second player card
 		
+		ALERT_DRAW = false;
+		ALERT_STAY = false;
 		// wait for user input
-		
 		while (1) {	
 			
 			// user inputs draw card
-			if (ALERT_DRAW) { // TODO change condition to input
+			if (ALERT_DRAW) {
 				waitTime(10000);
-				
 				// give player random card
 				genVal = rand() % 13;		
 				// update user score
@@ -541,7 +534,8 @@ while (1) {
 				ALERT_DRAW = false;
 			}
 			// user inputs stay with current cards
-			if (0) { // TODO change condition to input
+			if (ALERT_STAY) {
+				ALERT_STAY = false;
 				break;
 			}
 			// user can have max 4 cards, auto stay if at 4
@@ -578,12 +572,11 @@ while (1) {
 		
 		// turn over, determine winner	
 		// player wins round
-		if (playerScore > botScore && playerScore < 22) {
+		if ((playerScore > botScore || botScore >= 22)&& playerScore < 22) {
 			chipCount++;
 			// update LEDs
 			// TODO
 			// display win message
-			// TODO
 				lcd_draw_image(
                           105,                       // X Center Point
                           37,   // Image Horizontal Width
@@ -601,7 +594,6 @@ while (1) {
 				// update LEDs
 				// TODO
 				// display loss message
-				// TODO
 								lcd_draw_image(
                           105,                       // X Center Point
                           32,   // Image Horizontal Width
@@ -615,7 +607,6 @@ while (1) {
 			// tie
 			if (playerScore == botScore) {
 				// display tie message
-				// TODO
 					lcd_draw_image(
                           105,                       // X Center Point
                           47,   // Image Horizontal Width
