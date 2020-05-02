@@ -33,7 +33,8 @@
 #include "lcd.h"
 #include "timers.h"
 #include "project_images.h"
-#include "ws2812b.h"
+#include "driver_defines.h"
+#include "launchpad_io.h"
 
 typedef enum{
   PS2_DIR_UP,
@@ -46,7 +47,6 @@ typedef enum{
 
 extern volatile bool ALERT_DRAW;
 extern volatile bool ALERT_STAY;
-extern void WS2812B_write(uint32_t port_base_addr, uint8_t *led_array_base_addr, uint16_t num_leds);
 
 #endif
 

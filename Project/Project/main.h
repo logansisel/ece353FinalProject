@@ -41,6 +41,7 @@
 #include "ft6x06.h"
 #include "eeprom.h"
 #include "ws2812b.h"
+#include "io_expander.h"
 
 void init_hardware(void);
 

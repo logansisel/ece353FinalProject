@@ -6,7 +6,7 @@
 #include <stdint.h>
 
 #define WS2812B_GPIO_BASE     GPIOD_BASE
-#define WS2812B_GPIO_ADDR     (GPIOD_BASE  + 0x200)
+#define WS2812B_GPIO_ADDR     (GPIOD_BASE  + 0x3FC)
 
 typedef __packed struct
 {

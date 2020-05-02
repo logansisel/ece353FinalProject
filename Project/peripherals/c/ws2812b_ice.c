@@ -2,8 +2,10 @@
 
 
 void ws2812b_rotate(WS2812B_t *base, uint8_t num_leds){
+	int i;
 	WS2812B_t temp = base[num_leds-1];
-	for (int i = num_leds-1; i > 0; i--){
+	
+	for (i = num_leds-1; i > 0; i--){
     base[i] = base[i-1];
 	}		
 	base[0] = temp;

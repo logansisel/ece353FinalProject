@@ -22,4 +22,4 @@
 .\obj\project_interrupts.o: ..\peripherals\include\lcd.h
 .\obj\project_interrupts.o: ..\drivers\include\timers.h
 .\obj\project_interrupts.o: project_images.h
-.\obj\project_interrupts.o: ..\peripherals\include\ws2812b.h
+.\obj\project_interrupts.o: ..\peripherals\include\launchpad_io.h

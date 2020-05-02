@@ -22,8 +22,8 @@
 
 #include "main.h"
 
-const int dealerColor = LCD_COLOR_RED;
-const int playerColor = LCD_COLOR_YELLOW;
+const int dealerColor = LCD_COLOR_GRAY;
+const int playerColor = LCD_COLOR_WHITE;
 const int cardWidth = 73;
 const int cardHeight = 91;
 
@@ -81,9 +81,13 @@ void init_hardware(void)
   ps2_initialize();
 	ft6x06_init();
 	eeprom_init();
+	lp_io_init();
+	io_expander_init();
+	io_expander_write_reg(MCP23017_IODIRA_R, 0x00);
+	
   
   // We need these 3 values or else it doesn't work, not sure why
-  gp_timer_config_32(TIMER2_BASE,TIMER_TAMR_TAMR_PERIOD, 50000000, false, true);
+  gp_timer_config_32(TIMER1_BASE,TIMER_TAMR_TAMR_PERIOD, 50000000, false, true);
   gp_timer_config_32(TIMER3_BASE,TIMER_TAMR_TAMR_PERIOD, 500000, false, true);
   gp_timer_config_32(TIMER4_BASE,TIMER_TAMR_TAMR_PERIOD, 500000, false, true);
 }
@@ -110,7 +114,7 @@ void _2D( int x, int y){
                           y,                       // Y Center Point
                           cardHeight,  // Image Vertical Height
                           Image_2DBitmaps,       // Image
-                          LCD_COLOR_BLUE,           // Foreground Color
+                          LCD_COLOR_RED,           // Foreground Color
                           color         // Background Color
                         );
 	
@@ -132,7 +136,7 @@ void _3D( int x, int y){
                           y,                       // Y Center Point
                           cardHeight,  // Image Vertical Height
                           Image_3DBitmaps,       // Image
-                          LCD_COLOR_BLUE,           // Foreground Color
+                          LCD_COLOR_RED,           // Foreground Color
                           color         // Background Color
                         );
 }
@@ -152,7 +156,7 @@ void _4D(int x, int y){
                           y,                       // Y Center Point
                           cardHeight,  // Image Vertical Height
                           Image_4DBitmaps,       // Image
-                          LCD_COLOR_BLUE,           // Foreground Color
+                          LCD_COLOR_RED,           // Foreground Color
                           color          // Background Color
                         );
 }
@@ -171,7 +175,7 @@ void _5D(int x, int y){
                           y,                       // Y Center Point
                           cardHeight,  // Image Vertical Height
                           Image_5DBitmaps,       // Image
-                          LCD_COLOR_BLUE,           // Foreground Color
+                          LCD_COLOR_RED,           // Foreground Color
                           color          // Background Color
                         );
 }
@@ -190,7 +194,7 @@ void _6D(int x, int y){
                           y,                       // Y Center Point
                           cardHeight,  // Image Vertical Height
                           Image_6DBitmaps,       // Image
-                          LCD_COLOR_BLUE,           // Foreground Color
+                          LCD_COLOR_RED,           // Foreground Color
                           color         // Background Color
                         );
 	
@@ -209,7 +213,7 @@ void _7D(int x, int y){
                           y,                       // Y Center Point
                           cardHeight,  // Image Vertical Height
                           Image_7DBitmaps,       // Image
-                          LCD_COLOR_BLUE,           // Foreground Color
+                          LCD_COLOR_RED,           // Foreground Color
                           color          // Background Color
                         );
 	
@@ -229,7 +233,7 @@ void _8D(int x, int y){
                           y,                       // Y Center Point
                           cardHeight,  // Image Vertical Height
                           Image_8DBitmaps,       // Image
-                          LCD_COLOR_BLUE,           // Foreground Color
+                          LCD_COLOR_RED,           // Foreground Color
                           color        // Background Color
                         );
 	
@@ -249,7 +253,7 @@ void _9D(int x, int y){
                           y,                       // Y Center Point
                           cardHeight,  // Image Vertical Height
                           Image_9DBitmaps,       // Image
-                          LCD_COLOR_BLUE,           // Foreground Color
+                          LCD_COLOR_RED,           // Foreground Color
                           color         // Background Color
                         );
 	
@@ -269,7 +273,7 @@ void _TD(int x, int y){
                           y,                       // Y Center Point
                           cardHeight,  // Image Vertical Height
                           Image_TDBitmaps,       // Image
-                          LCD_COLOR_BLUE,           // Foreground Color
+                          LCD_COLOR_RED,           // Foreground Color
                           color         // Background Color
                         );
 	
@@ -289,7 +293,7 @@ void _JD(int x, int y){
                           y,                       // Y Center Point
                           cardHeight,  // Image Vertical Height
                           Image_JDBitmaps,       // Image
-                          LCD_COLOR_BLUE,           // Foreground Color
+                          LCD_COLOR_RED,           // Foreground Color
                           color         // Background Color
                         );
 	
@@ -309,7 +313,7 @@ void _QD(int x, int y){
                           y,                       // Y Center Point
                           89,  // Image Vertical Height
                           Image_QDBitmaps,       // Image
-                          LCD_COLOR_BLUE,           // Foreground Color
+                          LCD_COLOR_RED,           // Foreground Color
                           color         // Background Color
                         );
 	
@@ -329,7 +333,7 @@ void _KD(int x, int y){
                           y,                       // Y Center Point
                           89,  // Image Vertical Height
                           Image_KDBitmaps,       // Image
-                          LCD_COLOR_BLUE,           // Foreground Color
+                          LCD_COLOR_RED,           // Foreground Color
                           color         // Background Color
                         );
 	
@@ -349,7 +353,7 @@ void _AD(int x, int y){
                           y,                       // Y Center Point
                           cardHeight,  // Image Vertical Height
                           Image_ADBitmaps,       // Image
-                          LCD_COLOR_BLUE,           // Foreground Color
+                          LCD_COLOR_RED,           // Foreground Color
                           color         // Background Color
                         );
 	
@@ -422,38 +426,58 @@ int getCard(int card, int number, int dealer){
 	}else if (card == 12){
 		_QD(x,y);
 	}
-	
 }
 
-
 void highestScore(int myScore){
-	
-	if(myScore == 4){
-		
+	if(myScore == 4)
 		lcd_draw_image(115, 142, 170, 165, highScore4, LCD_COLOR_RED, LCD_COLOR_BLACK);
-		
-		
-		
-	}else if(myScore == 5){
+  else if(myScore == 5)
 		lcd_draw_image(115, 123, 170, 185, highScore5, LCD_COLOR_RED, LCD_COLOR_BLACK);
-		
-	}else if(myScore == 6){
-		
+	else if(myScore == 6)
 		lcd_draw_image(115, 148, 170, 202, highScore6, LCD_COLOR_RED, LCD_COLOR_BLACK);
-		
-		
-	}else if (myScore == 7){
-		
+	else if (myScore == 7)
 		lcd_draw_image(115, 132, 170, 175, highScore7, LCD_COLOR_RED, LCD_COLOR_BLACK);
-		
-	}else if (myScore == 8){
-		
+	else if (myScore == 8)
 		lcd_draw_image(115, 141, 170, 174, highScore8, LCD_COLOR_RED, LCD_COLOR_BLACK);
-	}else{
-		
-	}
+	else
+		lcd_draw_image(115, 142, 170, 165, highScore4, LCD_COLOR_RED, LCD_COLOR_BLACK); // not possible
 	
 	waitTime(100000);
+}
+
+void setChips(int chips){
+	
+	if(chips == 0){
+		io_expander_write_reg(MCP23017_GPIOA_R, 0x00);
+	}
+	
+	if(chips == 1){
+		io_expander_write_reg(MCP23017_GPIOA_R, 0x01);
+	}
+	
+	if(chips == 2){
+		io_expander_write_reg(MCP23017_GPIOA_R, 0x03);
+	}
+	
+	if(chips == 3){
+		io_expander_write_reg(MCP23017_GPIOA_R, 0x07);
+	}
+	
+	if(chips == 4){
+		io_expander_write_reg(MCP23017_GPIOA_R, 0x0F);
+		}
+	if(chips == 5){
+		io_expander_write_reg(MCP23017_GPIOA_R, 0x1F);
+	}
+	if(chips == 6){
+		io_expander_write_reg(MCP23017_GPIOA_R, 0x3F);
+	}
+	if(chips == 7){
+		io_expander_write_reg(MCP23017_GPIOA_R, 0x7F);
+	}
+	if(chips == 8){
+		io_expander_write_reg(MCP23017_GPIOA_R, 0xFF);
+	}
 	
 }
 
@@ -461,7 +485,7 @@ int
 main(void)
 {
 	
-
+uint16_t i;
 uint8_t chipCount;
 uint8_t playerScore;
 uint8_t botScore;
@@ -473,17 +497,15 @@ uint8_t highScore;
 bool game_over;
 	
 init_hardware();
-srand(999); // random seed
+srand(95); // random seed
 
+printf("Running...\n");	
 // get highest chip count and write to screen
 eeprom_byte_read(I2C1_BASE, 256, &highScore);
 highestScore(highScore);
-printf("Highest Chip Count: %d\n", highScore);
-//TODO
 	
 // infinite game loop	
 while (1) {
-	
 	
 	// set chip count at 4, start game
 	chipCount = 4;
@@ -492,7 +514,8 @@ while (1) {
 	// display main menu
 	lcd_clear_screen(LCD_COLOR_BLACK);
 	lcd_draw_image(115, 174, 170, 279, homeScreen, LCD_COLOR_GREEN, LCD_COLOR_BLACK);
-	// wait for screen touch
+	
+	// wait for screen touch, NOTE: TOUCH SCREEN RETURNS FALSE 1s
 	while(1){
 		if(0) { // TODO check button press
 			eeprom_byte_write(I2C1_BASE, 256, 4);
@@ -501,10 +524,11 @@ while (1) {
 		if (ft6x06_read_td_status() == 1)
 			break;
 	}
-	
 	lcd_clear_screen(LCD_COLOR_BLACK);
 	
+	
   while (!game_over) {
+		setChips(chipCount);
 		playerScore = 0;
 		botScore = 0;
 		playerCards = 0;
@@ -616,14 +640,16 @@ while (1) {
 		waitTime(10000);
 		
 		
-		// turn over, determine winner	
+		// turn over, determine winner
+    // displays animated message		
 		// player wins round
 		if ((playerScore > botScore || botScore >= 22)&& playerScore < 22) {
 			chipCount++;
 			// update LEDs
 			// TODO
 			// display win message
-				lcd_draw_image(105, 37, 170, 35, winHand, LCD_COLOR_GREEN, LCD_COLOR_BLACK);
+			for (i = 120; i < 190; i++)
+			  lcd_draw_image(120, 37, i, 35, winHand, LCD_COLOR_GREEN, LCD_COLOR_BLACK);
 		}
 		// bot wins round
 		else {
@@ -632,12 +658,14 @@ while (1) {
 				// update LEDs
 				// TODO
 				// display loss message
-				lcd_draw_image(105, 32, 170, 32, loseHand, LCD_COLOR_RED, LCD_COLOR_BLACK);
+				for (i = 120; i < 190; i++)
+				  lcd_draw_image(120, 32, i, 32, loseHand, LCD_COLOR_RED, LCD_COLOR_BLACK);
 			}
 			// tie
 			if (playerScore == botScore) {
 				// display tie message
-				lcd_draw_image(105, 47, 170, 18, push, LCD_COLOR_YELLOW, LCD_COLOR_BLACK);
+				for (i = 120; i < 190; i++)
+				  lcd_draw_image(120, 47, i, 18, push, LCD_COLOR_YELLOW, LCD_COLOR_BLACK);
 			}
 		}
 		// update high score if passed
@@ -650,11 +678,12 @@ while (1) {
 		}
 		
 		
-		waitTime(400000);
+		waitTime(200000);
 		lcd_clear_screen(LCD_COLOR_BLACK);
 		
 		// check if game is over
 		if (chipCount < 1 || chipCount > 7) {		
+			io_expander_write_reg(MCP23017_GPIOA_R, 0x00);
 			game_over = true;	
 		}
 		//game_over = true; // Test to make it stop runnning forever
