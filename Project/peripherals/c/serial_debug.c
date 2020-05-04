@@ -86,24 +86,20 @@ void serial_debug_tx(uint32_t uart_base, PC_Buffer *tx_buffer, int data)
 int fgetc(FILE* stream)
 {
    char c;
-
-   
    if ( Rx_Interrupts_Enabled)
    {
-    c = serial_debug_rx(SERIAL_DEBUG_RX_BUF_PTR, true);
+     c = serial_debug_rx(SERIAL_DEBUG_RX_BUF_PTR, false);
    }
    else
    {
-     c = uart_rx_poll(SERIAL_DEBUG_UART_BASE,true);
+     c = uart_rx_poll(SERIAL_DEBUG_UART_BASE, false);
    }
-
    if (c == '\r')
       c = '\n';
-
-   fputc(c, stdout);
-
+   //fputc(c, stdout);
    return c;
 }
+
 
 //****************************************************************************
 // This function is called from MicroLIB's stdio library.  By implementing

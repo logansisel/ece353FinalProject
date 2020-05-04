@@ -195,6 +195,50 @@ bool  lp_io_read_pin(uint8_t pin_number)
     }
 }
 
+//*****************************************************************************
+// Configures PF0 as in interrupt input
+//*****************************************************************************
+void configure_gpio_interrupts(void)
+{
+ // Enable GPIOF Clock
+  SYSCTL->RCGCGPIO |= SYSCTL_RCGCGPIO_R5;
+  while (! (SYSCTL->PRGPIO & SYSCTL_PRGPIO_R5) ) {}
+
+  // PF1 is a digital Pin
+  GPIOF->DEN |= 0x01;
+
+  // PF1 is an input
+  GPIOF->DIR &= ~0x01;
+
+  // PF1 has internal pull-up resistors enabled.   
+  GPIOF->PUR |= 0x01;
+
+  // Configure the interrupt for edge based interrupts
+  GPIOF->IS &= ~0x01;
+
+  // Clear any outstanding interrupts on PF0
+  GPIOF->ICR |= 0x01;
+
+  // Interrupt is controlled by IEV
+  GPIOF->IBE &= ~0x01;
+
+  // Set the interrupts as rising edge interrupts
+  GPIOF->IEV |= 0x00;
+
+  // Enable the Interrupt Mask for PF0
+  GPIOF->IM |= 0x01;
+
+ // Enable the Interrupt in the NVIC
+  NVIC_EnableIRQ(GPIOF_IRQn);
+ 
+  // Set the Priority
+  NVIC_SetPriority(GPIOF_IRQn, 1);
+
+  
+
+}
+
+
 /*********************************************************************************
 * Summary:
 * Configures the GPIO pins connected to the Launchpad LEDs and push buttons
@@ -207,6 +251,6 @@ void lp_io_init(void)
 	port_f_enable_output(0xE);
 	port_f_enable_input(0x11);
 	port_f_enable_pull_up(0x11);
-	
+	configure_gpio_interrupts();
 }
 

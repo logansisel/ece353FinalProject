@@ -73,8 +73,8 @@ void EnableInterrupts(void)
 //*****************************************************************************
 void init_hardware(void)
 {
+	DisableInterrupts();
 	init_serial_debug(true,true);
-	
   lcd_config_gpio();
   lcd_config_screen();
   lcd_clear_screen(LCD_COLOR_BLACK);
@@ -83,28 +83,27 @@ void init_hardware(void)
 	eeprom_init();
 	lp_io_init();
 	io_expander_init();
-	io_expander_write_reg(MCP23017_IODIRA_R, 0x00);
+	EnableInterrupts();
+
 	
-  
-  // We need these 3 values or else it doesn't work, not sure why
-  gp_timer_config_32(TIMER1_BASE,TIMER_TAMR_TAMR_PERIOD, 50000000, false, true);
-  gp_timer_config_32(TIMER3_BASE,TIMER_TAMR_TAMR_PERIOD, 500000, false, true);
-  gp_timer_config_32(TIMER4_BASE,TIMER_TAMR_TAMR_PERIOD, 500000, false, true);
+  gp_timer_config_32(TIMER1_BASE,TIMER_TAMR_TAMR_PERIOD, 5000, false, true); // breathingLED
+	gp_timer_config_32(TIMER2_BASE, TIMER_TAMR_TAMR_PERIOD, 1000000, false, true); // breathing LED
+  gp_timer_config_32(TIMER3_BASE,TIMER_TAMR_TAMR_PERIOD, 5000, false, true); // touch screen
+  gp_timer_config_32(TIMER4_BASE,TIMER_TAMR_TAMR_PERIOD, 5000, false, true); // other timer
 }
 
 void waitTime(int time) {
 	int i;
-	time = time * 100;
-	for (i = 0; i < time; i++) {
-		
-	}
+	time = time * 100; // function to wait 
+	for (i = 0; i < time; i++) {}
 }
 
+//The following 13 functons are for drawing each of the 13 cards in their respecitve location
 void _2D( int x, int y){
 	
 	int color = 0;
 	if(y > 150){
-		color = playerColor;
+		color = playerColor; // Determine if play or dealer card
 	}else {
 		color = dealerColor;
 	}
@@ -125,7 +124,7 @@ void _3D( int x, int y){
 	
 	int color = 0;
 	if(y > 150){
-		color = playerColor;
+		color = playerColor; 
 	}else {
 		color = dealerColor;
 	}
@@ -359,11 +358,13 @@ void _AD(int x, int y){
 	
 }
 
+//This function is a helper for drawing the next cards
 int getCard(int card, int number, int dealer){
 	
 	int x = 0;
 	int y = 0;
 	
+	// These determine the position the cards should be placed
 	if(number == 0){
 		if(dealer == 1){
 			x = dealerCard1x;
@@ -399,6 +400,7 @@ int getCard(int card, int number, int dealer){
 		}
 	}
 	
+	//This calls the corresponding function
 	if(card == 0){
 		_KD(x,y);
 	}else if (card == 1){
@@ -428,6 +430,7 @@ int getCard(int card, int number, int dealer){
 	}
 }
 
+//Function for displaying the proper high score
 void highestScore(int myScore){
 	if(myScore == 4)
 		lcd_draw_image(115, 142, 170, 165, highScore4, LCD_COLOR_RED, LCD_COLOR_BLACK);
@@ -445,24 +448,20 @@ void highestScore(int myScore){
 	waitTime(100000);
 }
 
+//Function for writing the proper amount of chips to the 8 red LEDS
 void setChips(int chips){
-	
 	if(chips == 0){
 		io_expander_write_reg(MCP23017_GPIOA_R, 0x00);
 	}
-	
 	if(chips == 1){
 		io_expander_write_reg(MCP23017_GPIOA_R, 0x01);
 	}
-	
 	if(chips == 2){
 		io_expander_write_reg(MCP23017_GPIOA_R, 0x03);
 	}
-	
 	if(chips == 3){
 		io_expander_write_reg(MCP23017_GPIOA_R, 0x07);
 	}
-	
 	if(chips == 4){
 		io_expander_write_reg(MCP23017_GPIOA_R, 0x0F);
 		}
@@ -478,13 +477,29 @@ void setChips(int chips){
 	if(chips == 8){
 		io_expander_write_reg(MCP23017_GPIOA_R, 0xFF);
 	}
-	
+}
+
+
+bool checkPause(bool run) {
+	// check for space bar to pause/unpause
+	char paused;
+	if ((paused = fgetc(stdin)) == ' ') { 
+		if (run) {
+			printf("Paused. Hit space bar to resume...\n");
+			run = false;
+		} 
+		else {
+			printf("Running...\n");
+			run = true;
+		} 
+	}
+	return run;
 }
 
 int 
 main(void)
 {
-	
+	uint8_t button;
 uint16_t i;
 uint8_t chipCount;
 uint8_t playerScore;
@@ -494,16 +509,19 @@ uint8_t botCards;
 uint16_t genVal;	
 uint16_t cardVal;
 uint8_t highScore;
-bool game_over;
+bool game_over; // Initialize all variables
+bool running;
 	
 init_hardware();
-srand(95); // random seed
+srand(99); // random seed
 
-printf("Running...\n");	
+printf("Running...\n");
+running = true;
+	
 // get highest chip count and write to screen
 eeprom_byte_read(I2C1_BASE, 256, &highScore);
 highestScore(highScore);
-	
+waitTime(50000);
 // infinite game loop	
 while (1) {
 	
@@ -514,25 +532,48 @@ while (1) {
 	// display main menu
 	lcd_clear_screen(LCD_COLOR_BLACK);
 	lcd_draw_image(115, 174, 170, 279, homeScreen, LCD_COLOR_GREEN, LCD_COLOR_BLACK);
-	
+	ALERT_BUTTON = false;
 	// wait for screen touch, NOTE: TOUCH SCREEN RETURNS FALSE 1s
 	while(1){
-		if(0) { // TODO check button press
-			eeprom_byte_write(I2C1_BASE, 256, 4);
-		}
 		
-		if (ft6x06_read_td_status() == 1)
+		// check if needs to pause
+		running = checkPause(running);
+		while (!running){
+		  running = checkPause(running);
+		}		
+		
+		
+			
+			//ALERT_BUTTON = false;
+			//printf("handler\n");
+			// if any button pressed, reset high score
+			button = io_expander_read_reg(MCP23017_GPIOB_R);
+			if (!(button & 0x01)) {
+				
+				eeprom_byte_write(I2C1_BASE, 256, 4);
+			}
+		
+		
+		// wait for screen touch
+		if (ft6x06_read_td_status() == 2)
 			break;
 	}
-	lcd_clear_screen(LCD_COLOR_BLACK);
 	
+	lcd_clear_screen(LCD_COLOR_BLACK);
+	setChips(chipCount);
 	
   while (!game_over) {
-		setChips(chipCount);
+		
 		playerScore = 0;
 		botScore = 0;
 		playerCards = 0;
 		botCards = 0;
+		
+		// check if needs to pause
+		running = checkPause(running);
+		while (!running){
+		  running = checkPause(running);
+		}
 		
 		waitTime(50000);
 		// give player first random card
@@ -548,7 +589,7 @@ while (1) {
 		playerCards++;
 		// put card to screen
 		getCard(genVal,0,false); // Place first player card
-		
+
 		waitTime(50000);
 		// give bot random card
 		genVal = rand() % 13;
@@ -562,7 +603,7 @@ while (1) {
 		botScore = botScore + cardVal;
 		botCards++;
 		// put card to screen
-		getCard(genVal,0,true); // Place first dealer card
+		getCard(genVal,0,true); // Place first dealer card		
 		
 		waitTime(50000);
 		// give player second random card
@@ -583,7 +624,11 @@ while (1) {
 		ALERT_STAY = false;
 		// wait for user input
 		while (1) {	
-			
+			// check if needs to pause
+		  running = checkPause(running);
+		  while (!running){
+		    running = checkPause(running);
+		  }
 			// user inputs draw card
 			if (ALERT_DRAW) {
 				waitTime(10000);
@@ -614,6 +659,12 @@ while (1) {
 			}
 		}
 		
+		// check if needs to pause
+		running = checkPause(running);
+		while (!running){
+		  running = checkPause(running);
+		}
+		
 		waitTime(50000);
 		// make dealer bot pick cards
 		while (1) {
@@ -633,20 +684,22 @@ while (1) {
 				// put card to screen
 				getCard(genVal,botCards-1,true);
 				waitTime(50000);
+				// check if needs to pause
+		    running = checkPause(running);
+		    while (!running){
+		      running = checkPause(running);
+		    }
 			}
 			else
 				break;
 		}
 		waitTime(10000);
 		
-		
 		// turn over, determine winner
     // displays animated message		
 		// player wins round
 		if ((playerScore > botScore || botScore >= 22)&& playerScore < 22) {
 			chipCount++;
-			// update LEDs
-			// TODO
 			// display win message
 			for (i = 120; i < 190; i++)
 			  lcd_draw_image(120, 37, i, 35, winHand, LCD_COLOR_GREEN, LCD_COLOR_BLACK);
@@ -655,8 +708,6 @@ while (1) {
 		else {
 			if (playerScore < botScore || playerScore >= 22) {
 				chipCount--;
-				// update LEDs
-				// TODO
 				// display loss message
 				for (i = 120; i < 190; i++)
 				  lcd_draw_image(120, 32, i, 32, loseHand, LCD_COLOR_RED, LCD_COLOR_BLACK);
@@ -668,35 +719,44 @@ while (1) {
 				  lcd_draw_image(120, 47, i, 18, push, LCD_COLOR_YELLOW, LCD_COLOR_BLACK);
 			}
 		}
+		setChips(chipCount);
+		
 		// update high score if passed
 		eeprom_byte_read(I2C1_BASE, 256, &highScore);
-		//printf("Highest Chip Count: %d\n", highScore);
-		//printf("Current Chip Count: %d\n", chipCount);
 		if (highScore < chipCount) {
 			eeprom_byte_write(I2C1_BASE, 256, chipCount);
-			//printf("Wrote to eeprom\n");
 		}
 		
+		waitTime(100000);
+		// check if needs to pause
+		running = checkPause(running);
+		while (!running){
+		  running = checkPause(running);
+		}
+		waitTime(100000);
 		
-		waitTime(200000);
 		lcd_clear_screen(LCD_COLOR_BLACK);
 		
 		// check if game is over
 		if (chipCount < 1 || chipCount > 7) {		
-			io_expander_write_reg(MCP23017_GPIOA_R, 0x00);
 			game_over = true;	
 		}
-		//game_over = true; // Test to make it stop runnning forever
 	}
 	if (chipCount < 1) {
-		// display loss message
-			
+		// show empty chip stack
+		io_expander_write_reg(MCP23017_GPIOA_R, 0x00);		
 	}
-	// player won game
+	// player won game 
 	if (chipCount > 7) {
-		// display win message
-	
-	}		
+		// show full chip stack
+		io_expander_write_reg(MCP23017_GPIOA_R, 0xFF);
+	}
+	// check if needs to pause
+	running = checkPause(running);
+  while (!running){
+		running = checkPause(running);
+  }
+  // restart game	
 }
 
 

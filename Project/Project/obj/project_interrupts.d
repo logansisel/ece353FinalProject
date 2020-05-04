@@ -23,3 +23,6 @@
 .\obj\project_interrupts.o: ..\drivers\include\timers.h
 .\obj\project_interrupts.o: project_images.h
 .\obj\project_interrupts.o: ..\peripherals\include\launchpad_io.h
+.\obj\project_interrupts.o: ..\peripherals\include\io_expander.h
+.\obj\project_interrupts.o: ..\drivers\include\i2c.h
+.\obj\project_interrupts.o: ..\peripherals\include\eeprom.h

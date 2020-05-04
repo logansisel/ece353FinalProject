@@ -6,6 +6,8 @@ static volatile PS2_DIR_t PS2_DIR = PS2_DIR_CENTER;
 PS2_DIR_t direction = PS2_DIR_CENTER; // Keep track of spaceship direction
 volatile bool ALERT_DRAW = false;
 volatile bool ALERT_STAY = false;
+volatile bool ALERT_BUTTON = false;
+volatile int8_t CYCLE = 0;
 uint32_t i;
 //*****************************************************************************
 // Returns the most current direction that was pressed.
@@ -27,22 +29,47 @@ PS2_DIR_t ps2_get_direction(void)
 }
 
 //*****************************************************************************
-// TIMER1 ISR is used to blink LED
+// TIMER1 ISR is used to breath LED
 //*****************************************************************************
 void TIMER1A_Handler(void)
 {	
-	lp_io_set_pin(2);
-	for (i = 0; i < 10000; i++){}
-	lp_io_clear_pin(2);
+	static int number = 0;	
+	if (number < CYCLE) lp_io_set_pin(BLUE_BIT);	
+	else lp_io_clear_pin(BLUE_BIT);		
+  number = (number+1) % 100;
+	
   // Clear the interrupt
 	TIMER1->ICR |= TIMER_ICR_TATOCINT;
 }
 
 //*****************************************************************************
-// TIMER3 ISR is used to determine when to draw a card
+// TIMER2A ISR is used to breath LED
+//*****************************************************************************
+void TIMER2A_Handler(void)
+{	
+		
+
+	static bool myBool;	
+	
+	if (CYCLE == -45) myBool = true;
+	else if(CYCLE == 100) myBool = false;
+	
+	
+	if (myBool) CYCLE = CYCLE + 1;
+	else CYCLE = CYCLE - 1;
+	
+		
+	
+  // Clear the interrupt
+	TIMER2->ICR |= TIMER_ICR_TATOCINT;
+	
+}
+
+//*****************************************************************************
+// TIMER3 ISR is for joystick inputs 
 //*****************************************************************************
 void TIMER3A_Handler(void)
-{	
+{		
 	// if pulled down, draw a card
 	if (PS2_DIR == PS2_DIR_DOWN){
 		ALERT_DRAW = true;
@@ -51,6 +78,7 @@ void TIMER3A_Handler(void)
 	if (PS2_DIR == PS2_DIR_UP){
 		ALERT_STAY = true;
 	}
+
 	// Clear the interrupt
 	TIMER3->ICR |= TIMER_ICR_TATOCINT;  
 }
@@ -76,3 +104,17 @@ void ADC0SS2_Handler(void)
 	 // Clear the interrupt
   ADC0->ISC |= ADC_ISC_IN2;
 }
+
+// GPIOF is used to detect button presses
+void GPIOF_Handler(void)
+{
+	//printf("ddddddddddd");
+	ALERT_BUTTON = true;
+	GPIOF->ICR |= GPIO_ICR_GPIO_M;
+}
+
+
+
+
+
+

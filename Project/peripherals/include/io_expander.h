@@ -29,7 +29,7 @@
 #include <stdbool.h>
 #include "gpio_port.h"
 #include "i2c.h"
-
+#include "eeprom.h"
 //*****************************************************************************
 // Fill out the #defines below to configure which pins are connected to
 // the I2C Bus

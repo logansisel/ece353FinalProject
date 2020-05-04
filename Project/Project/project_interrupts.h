@@ -35,6 +35,8 @@
 #include "project_images.h"
 #include "driver_defines.h"
 #include "launchpad_io.h"
+#include "io_expander.h"
+#include "eeprom.h"
 
 typedef enum{
   PS2_DIR_UP,
@@ -47,6 +49,7 @@ typedef enum{
 
 extern volatile bool ALERT_DRAW;
 extern volatile bool ALERT_STAY;
+extern volatile bool ALERT_BUTTON;
 
 #endif
 

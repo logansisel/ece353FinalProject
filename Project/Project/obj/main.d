@@ -24,12 +24,12 @@
 .\obj\main.o: ..\drivers\include\gptimer.h
 .\obj\main.o: ..\peripherals\include\launchpad_io.h
 .\obj\main.o: project_interrupts.h
+.\obj\main.o: ..\peripherals\include\io_expander.h
+.\obj\main.o: ..\drivers\include\i2c.h
+.\obj\main.o: ..\peripherals\include\eeprom.h
 .\obj\main.o: ..\peripherals\include\serial_debug.h
 .\obj\main.o: ..\drivers\include\pc_buffer.h
 .\obj\main.o: ..\drivers\include\uart.h
 .\obj\main.o: ..\peripherals\include\validate.h
 .\obj\main.o: ..\peripherals\include\ft6x06.h
-.\obj\main.o: ..\drivers\include\i2c.h
-.\obj\main.o: ..\peripherals\include\eeprom.h
 .\obj\main.o: ..\peripherals\include\ws2812b.h
-.\obj\main.o: ..\peripherals\include\io_expander.h
